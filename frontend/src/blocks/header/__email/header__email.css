@@ -1,0 +1,12 @@
+.header__email {
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #ffffff;
+}
+@media all and (max-width: 370px) {
+    .header__email {
+        font-size: 15px;
+    }
+}

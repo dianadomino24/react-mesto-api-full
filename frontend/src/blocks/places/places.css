@@ -1,0 +1,7 @@
+@import url(./__list/places__list.css);
+@import url(./__item/places__item.css);
+@import url(./__empty-list/places__empty-list.css);
+@import url(./__empty-list/_visible/places__empty-list_visible.css);
+
+.places {
+}

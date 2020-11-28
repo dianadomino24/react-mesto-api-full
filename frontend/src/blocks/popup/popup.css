@@ -1,0 +1,38 @@
+@import url(__container/popup__container.css);
+@import url(__close-button/popup__close-button.css);
+@import url(__form/popup__form.css);
+@import url(__title/popup__title.css);
+@import url(__title/_type/popup__title_type_login.css);
+@import url(__title_type_card-delete/popup__title_type_card-delete.css);
+@import url(__fieldset/popup__fieldset.css);
+@import url(__input/popup__input.css);
+@import url(__input/_type/popup__input_type_dark.css);
+@import url(__save-button/popup__save-button.css);
+@import url(__save-button/_type_dark/popup__save-button_type_dark.css);
+@import url(__save-button/_disabled/popup__save-button_disabled.css);
+@import url(__container-pic-zoom/popup__container-pic-zoom.css);
+@import url(__container-register-login/popup__container-register-login.css);
+@import url(__label/popup__label.css);
+@import url(__input-error/popup__input-error.css);
+@import url(__input-error/_active/popup__input-error_active.css);
+@import url(__login-link/popup__login-link.css);
+@import url(__register-login/popup__register-login.css);
+@import url(__infotool-img/popup__infotool-img.css);
+@import url(__infotool-text/popup__infotool-text.css);
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    color: #000000;
+    font-family: 'Inter', Arial, sans-serif;
+    box-sizing: border-box;
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.4s linear, opacity 0.4s linear;
+}

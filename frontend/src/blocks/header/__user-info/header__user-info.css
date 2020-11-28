@@ -1,0 +1,14 @@
+.header__user-info {
+    display: flex;
+}
+@media all and (max-width: 600px) {
+    .header__user-info {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+@media all and (max-width: 500px) {
+    .header__user-info {
+        margin-right: 21%;
+    }
+}

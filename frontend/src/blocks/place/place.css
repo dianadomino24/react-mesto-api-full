@@ -1,0 +1,21 @@
+@import url('./__image/place__image.css');
+@import url('./__delete-button/place__delete-button.css');
+@import url('./__delete-button_disabled/place__delete-button_disabled.css');
+@import url('./__wrapper/place__wrapper.css');
+@import url('./__name/place__name.css');
+@import url('./__like-button-container/place__like-button-container.css');
+@import url('./__like-button/place__like-button.css');
+@import url('./__like-button_active/place__like-button_active.css');
+@import url('./__like-counter/place__like-counter.css');
+
+.place {
+    color: #000000;
+    font-family: 'Inter', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden; /* чтобы убрать белые уголки от border-radius */
+    box-sizing: border-box;
+    position: relative;
+}

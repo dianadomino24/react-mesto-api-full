@@ -1,0 +1,25 @@
+@import url('./__logo/header__logo.css');
+@import url('./__button/header__button.css');
+@import url('./__link/header__link.css');
+@import url('./__user-info/header__user-info.css');
+@import url('./__email/header__email.css');
+
+.header {
+    font-family: 'Inter', Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    padding-bottom: 40.6px;
+    border-bottom: 1px solid #545454;
+}
+@media screen and (max-width: 500px) {
+    .header {
+        padding-bottom: 31.6px;
+        width: 130%; /*чтобы полоса была на всю ширину 
+    окна без padding (overflow hidden для page-container 
+    против гориз.скролла) */
+        margin-left: -19px;
+        margin-right: 0;
+    }
+}
