@@ -2,6 +2,7 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const isEmail = require('validator/lib/isEmail');
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 
 const getUsers = (req, res) => {
@@ -75,10 +76,36 @@ const updateAvatar = (req, res) => {
     .catch((err) => res.status(400).send({ message: `Ошибка изменения аватара пользователя: ${err}` }));
 };
 
+function login(req, res, next) {
+  const { email, password } = req.body;
+
+  //   if (!(email && password)) {
+  //   return next(new IncorrectDataError('Поля email и password должны быть заполнены!'));
+  // }
+
+  User.findUserByCredentials(email, password)
+    .then((user) => {
+      if (!user) {
+        res.status(401).send({ message: 'Email does not exist'})
+        // throw new ValidationError('Email does not exist');
+      }
+      return user;
+    })
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'very-secret-key', { expiresIn: '7d' },
+      );
+      res.status(200).send({ token });
+    })
+    .catch(next);
+}
+
 module.exports = {
   getUser,
   getUsers,
   createUser,
   updateUser,
   updateAvatar,
+  login,
 };
