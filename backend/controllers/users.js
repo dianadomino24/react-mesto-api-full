@@ -1,4 +1,8 @@
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const isEmail = require('validator/lib/isEmail');
+
 
 const getUsers = (req, res) => {
   User.find({})
@@ -28,11 +32,20 @@ const getUser = (req, res) => {
     });
 };
 
-const createUser = (req, res) => {
-  const { name, about, avatar } = req.body;
+const createUser = (req, res, next) => {
+  const { email, password, name, about, avatar} = req.body;
 
-  User.create({ name, about, avatar })
-    .then((user) => res.status(200).send({ data: user }))
+  bcrypt
+    .hash(password, 10)
+    .then((hash) => User.create({
+      email,
+      password: hash,
+      name,
+      about,
+      avatar,
+    }))
+    .then((user) => res.send({data: user}))
+
     .catch((err) => res.status(400).send({ message: `Ошибка при создании пользователя: ${err}` }));
 };
 
