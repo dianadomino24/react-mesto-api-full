@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const {login, createUser} = require('./controllers/users')
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -15,17 +16,21 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useCreateIndex: true,
   useFindAndModify: false,
 });
-// временная мера
-app.use((req, res, next) => {
-  req.user = {
-    _id: '5f916a0010f31e3650563dcf',
-  };
+// // временная мера
+// app.use((req, res, next) => {
+//   req.user = {
+//     _id: '5f916a0010f31e3650563dcf',
+//   };
 
-  next();
-});
+//   next();
+// });
+app.post('/signin', login);
+app.post('/signup', createUser);
+
 // выдаст список пользователей, пользователя по id и карточки
 app.use('/users', usersRoutes);
 app.use('/cards', cardsRoutes);
+
 
 // при обращении к несущ.адресу выдаст ошибку
 app.use((req, res) => {
