@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const UnauthorizedError = require('../errors/UnauthorizedError')
+const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
 
@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
   // убеждаемся, что он есть и начинается с Bearer
   if (!authorization && !authorization.startsWith('Bearer ')) {
-    throw new UnauthorizedError({ message: 'Необходима авторизация' });;
+    throw new UnauthorizedError({ message: 'Необходима авторизация' });
   }
   // извлечём токен
   const token = authorization.replace('Bearer ', '');
