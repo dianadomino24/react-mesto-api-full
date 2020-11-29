@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { errors } = require('celebrate');
-const { login, createUser } = require('./controllers/users');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { routerIndex } = require('./routes/index');
+const NotFoundError = require('./errors/NotFoundError');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -20,14 +21,20 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
+app.use(requestLogger);
 app.use('/', routerIndex);
+app.use(errorLogger);
 
 // Централизованная обработка ошибок
 app.use(errors());
 
+app.use(() => {
+  throw new NotFoundError('Запрашиваемый ресурс не найден');
+});
+
 // здесь обрабатываем все ошибки
 app.use((err, req, res, next) => {
-  res.status(500).send({ message: `На сервере произошла ошибка: ${err}` });
+  res.status(500).send({ message: `На сервере произошла ошибка app: ${err}` });
 });
 
 app.listen(PORT, () => {
