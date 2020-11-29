@@ -46,7 +46,7 @@ const getMe = (req, res, next) => {
     .catch(next);
 };
 
-const createUser = (req, res, next) => {
+const createUser = (req, res) => {
   const {
     email, password, name, about, avatar,
   } = req.body;
@@ -112,7 +112,6 @@ const updateAvatar = (req, res) => {
 function login(req, res) {
   const { email, password } = req.body;
 
-  console.log('LOGIIN!!!');
   if (!(email && password)) {
     return res.status(400).send({ message: 'Поля email и password должны быть заполнены.' });
   }
@@ -122,7 +121,7 @@ function login(req, res) {
       if (!user) {
         return res.status(401).send({ message: 'Данный email не зарегистрирован' });
       }
-      bcrypt.compare(password, user.password)
+      return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (matched) {
             const token = jwt.sign(
@@ -130,7 +129,7 @@ function login(req, res) {
               NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
               { expiresIn: '7d' },
             );
-            res.status(200).send({ token });
+            return res.status(200).send({ token });
           }
           return res.status(401).send({ message: 'Неправильный логин или пароль' });
         });
