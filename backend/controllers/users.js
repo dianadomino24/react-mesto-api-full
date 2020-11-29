@@ -118,10 +118,9 @@ function login(req, res) {
     return res.status(400).send({ message: 'Поля email и password должны быть заполнены.' });
   }
 
-  User.findOne({email})
+  User.findOne({ email })
     .select('+password')
     .then((user) => {
-
       if (!user) {
         return res.status(401).send({ message: 'Данный email не зарегистрирован' });
       }

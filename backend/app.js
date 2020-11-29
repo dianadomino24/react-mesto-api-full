@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { errors } = require('celebrate');
 const { login, createUser } = require('./controllers/users');
-const {routerIndex} = require('./routes/index');
+const { routerIndex } = require('./routes/index');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -21,9 +22,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use('/', routerIndex);
 
-// при обращении к несущ.адресу выдаст ошибку
-app.use((req, res) => {
-  res.status(404).send({ message: 'Запрашиваемый ресурс не найден App' });
+// Централизованная обработка ошибок
+app.use(errors());
+
+// здесь обрабатываем все ошибки
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: `На сервере произошла ошибка: ${err}` });
 });
 
 app.listen(PORT, () => {
