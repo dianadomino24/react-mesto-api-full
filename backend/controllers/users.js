@@ -17,7 +17,7 @@ const getUsers = (req, res) => {
 };
 
 const getUser = (req, res) => {
-  // User.findOne({ _id: req.params.id })
+
   User.findById(req.params.id)
     .then((user) => {
       if (!user) {
@@ -32,6 +32,18 @@ const getUser = (req, res) => {
       return res.status(500).send({ message: `Ошибка считывания файла пользователя: ${err}` });
     });
 };
+
+const getMe = (req, res, next) => {
+  User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: 'Нет пользователя с таким id' });
+      }
+      res.send(user);
+    })
+    .catch(next);
+};
+
 
 const createUser = (req, res, next) => {
   const { email, password, name, about, avatar} = req.body;
@@ -108,4 +120,5 @@ module.exports = {
   updateUser,
   updateAvatar,
   login,
+  getMe,
 };

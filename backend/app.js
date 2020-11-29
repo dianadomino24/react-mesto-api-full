@@ -5,8 +5,7 @@ const {login, createUser} = require('./controllers/users')
 
 const app = express();
 const { PORT = 3000 } = process.env;
-const usersRoutes = require('./routes/users');
-const cardsRoutes = require('./routes/cards');
+const router = require('./routes/index');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,12 +23,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 //   next();
 // });
-app.post('/signin', login);
-app.post('/signup', createUser);
 
-// выдаст список пользователей, пользователя по id и карточки
-app.use('/users', usersRoutes);
-app.use('/cards', cardsRoutes);
+app.use('/', router);
 
 
 // при обращении к несущ.адресу выдаст ошибку
