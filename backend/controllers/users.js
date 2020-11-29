@@ -116,11 +116,14 @@ function login(req, res) {
     return res.status(400).send({ message: 'Поля email и password должны быть заполнены.' });
   }
 
-  User.findUserByCredentials(email, password)
+  User.findOne({email})
+    .select('+password')
     .then((user) => {
+
       if (!user) {
         return res.status(401).send({ message: 'Данный email не зарегистрирован' });
       }
+
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (matched) {
