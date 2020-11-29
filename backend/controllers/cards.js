@@ -1,61 +1,59 @@
 const Card = require('../models/card');
+const NotFoundError = require('../errors/NotFoundError');
+const BadRequestError = require('../errors/BadRequestError');
+const UnauthorizedError = require('../errors/UnauthorizedError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
-const getCards = (req, res) => {
+const getCards = (req, res, next) => {
   Card.find({})
     .then((cards) => {
       if (!cards) {
-        return res.status(404).send({ message: 'Карточки не найдены' });
+        throw new NotFoundError({ message: 'Карточки не найдены getCards' });
       }
       return res.status(200).send({ data: cards });
     })
-    .catch((err) => res
-      .status(500)
-      .send({ message: `Ошибка считывания файла карточек: ${err}` }));
+    .catch(next);
 };
 
-const createCard = (req, res) => {
+const createCard = (req, res, next) => {
   const owner = req.user._id;
+
   Card.create({ owner, ...req.body })
     .then((card) => res.status(200).send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({
+        throw new BadRequestError({
           message: `Ошибка валидации при создании карточки: ${err}`,
         });
       }
-      return res
-        .status(500)
-        .send({ message: `Ошибка при создании карточки: ${err}` });
-    });
+      return next(err);
+    })
+    .catch(next);
 };
 
-const deleteCard = (req, res) => {
+const deleteCard = (req, res, next) => {
   Card.findByIdAndDelete(req.params.cardId)
     .then((card) => {
       if (!card) {
-        return res.status(404).send({ message: 'Карточка не найдена' });
+        throw new NotFoundError({ message: 'Карточка не найдена' });
       }
 
       // запрет удалять чужие карточки
       if (card.owner.toString() !== req.user._id.toString()) {
-        return res.status(403).send({
-          message: 'У Вас нет прав для удаления чужой карточки',
-        });
+        throw new ForbiddenError({ message: 'У Вас нет прав для удаления чужой карточки' });
       }
 
       return res.status(200).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res.status(404).send({ message: 'Карточка не найдена' });
+        throw new NotFoundError({ message: 'Карточка не найдена' });
       }
-      return res
-        .status(500)
-        .send({ message: `Ошибка при удалении карточки: ${err}` });
-    });
+    })
+    .catch(next);
 };
 
-const putLike = (req, res) => {
+const putLike = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
@@ -63,20 +61,19 @@ const putLike = (req, res) => {
   )
     .then((card) => {
       if (!card) {
-        return res.status(404).send({ message: 'Карточка не найдена' });
+        throw new NotFoundError({ message: 'Карточка не найдена' });
       }
       return res.status(200).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res.status(404).send({ message: 'Карточка не найдена' });
+        throw new NotFoundError({ message: 'Карточка не найдена' });
       }
-      return res
-        .status(500)
-        .send({ message: `Ошибка при проставлении лайка: ${err}` });
-    });
+    })
+    .catch(next);
 };
-const deleteLike = (req, res) => {
+
+const deleteLike = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } }, // убрать _id из массива
@@ -84,18 +81,16 @@ const deleteLike = (req, res) => {
   )
     .then((card) => {
       if (!card) {
-        return res.status(404).send({ message: 'Карточка не найдена' });
+        throw new NotFoundError({ message: 'Карточка не найдена' });
       }
       return res.status(200).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res.status(404).send({ message: 'Карточка не найдена' });
+        throw new NotFoundError({ message: 'Карточка не найдена' });
       }
-      return res
-        .status(500)
-        .send({ message: `Ошибка при удалении лайка: ${err}` });
-    });
+    })
+    .catch(next);
 };
 
 module.exports = {
