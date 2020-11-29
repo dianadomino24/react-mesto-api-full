@@ -4,6 +4,7 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 const { JWT_SECRET, NODE_ENV } = process.env;
 
 module.exports = (req, res, next) => {
+  console.log(req.params)
   // достаём авторизационный заголовок
   const { authorization } = req.headers;
   // убеждаемся, что он есть и начинается с Bearer
@@ -23,7 +24,13 @@ module.exports = (req, res, next) => {
   } catch (err) {
     throw new UnauthorizedError({ message: 'Необходима авторизация, неверный токен' });
   }
+  // записываем пейлоуд в объект запроса
+  req.user = payload;
 
-  req.user = payload; // записываем пейлоуд в объект запроса
+
   next(); // пропускаем запрос дальше
 };
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // const requestedUser = req.path.substring(1);
+  // req.requestedUser = {_id: requestedUser };

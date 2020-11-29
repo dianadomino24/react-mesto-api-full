@@ -74,6 +74,7 @@ const putLike = (req, res, next) => {
 };
 
 const deleteLike = (req, res, next) => {
+  console.log(req.params.cardId)
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } }, // убрать _id из массива

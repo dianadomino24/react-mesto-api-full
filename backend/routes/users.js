@@ -12,13 +12,14 @@ const auth = require('../middlewares/auth');
 const {
   validationUserData,
   validationAvatar,
-  validationId,
+  validationUserId,
 } = require('../middlewares/requestValidator');
 
 router.get('/', getUsers);
-
-router.get('/:id', validationId, getUser);
 router.get('/me', getMe);
+router.get('/:id', validationUserId, getUser);
+
+
 
 router.patch('/me', validationUserData, updateUser);
 router.patch('/me/avatar', validationAvatar, updateAvatar);
