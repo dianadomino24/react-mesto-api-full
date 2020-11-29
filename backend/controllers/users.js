@@ -1,9 +1,9 @@
-const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const isEmail = require('validator/lib/isEmail');
-const { NODE_ENV, JWT_SECRET } = process.env;
+const User = require('../models/user');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getUsers = (req, res) => {
   User.find({})
@@ -13,11 +13,12 @@ const getUsers = (req, res) => {
       }
       return res.status(200).send({ data: users });
     })
-    .catch((err) => res.status(500).send({ message: `Ошибка считывания файла пользователей: ${err}` }));
+    .catch((err) => res.status(500).send({
+      message: `Ошибка считывания файла пользователей: ${err}`,
+    }));
 };
 
 const getUser = (req, res) => {
-
   User.findById(req.params.id)
     .then((user) => {
       if (!user) {
@@ -29,7 +30,9 @@ const getUser = (req, res) => {
       if (err.name === 'CastError') {
         return res.status(404).send({ message: 'Нет пользователя с таким id' });
       }
-      return res.status(500).send({ message: `Ошибка считывания файла пользователя: ${err}` });
+      return res.status(500).send({
+        message: `Ошибка считывания файла пользователя: ${err}`,
+      });
     });
 };
 
@@ -44,9 +47,10 @@ const getMe = (req, res, next) => {
     .catch(next);
 };
 
-
 const createUser = (req, res, next) => {
-  const { email, password, name, about, avatar} = req.body;
+  const {
+    email, password, name, about, avatar,
+  } = req.body;
 
   bcrypt
     .hash(password, 10)
@@ -57,35 +61,47 @@ const createUser = (req, res, next) => {
       about,
       avatar,
     }))
-    .then((user) => res.send({data: user}))
+    .then((user) => res.send({ data: user }))
 
-    .catch((err) => res.status(400).send({ message: `Ошибка при создании пользователя: ${err}` }));
+    .catch((err) => res
+      .status(400)
+      .send({ message: `Ошибка при создании пользователя: ${err}` }));
 };
 
 const updateUser = (req, res) => {
   const { name, about } = req.body;
   const me = req.user._id;
-  User.findByIdAndUpdate(me, { name, about },
+  User.findByIdAndUpdate(
+    me,
+    { name, about },
     {
       new: true, // обработчик then получит на вход обновлённую запись
       runValidators: true, // данные будут валидированы перед изменением
       upsert: true, // если пользователь не найден, он будет создан
-    })
+    },
+  )
     .then((user) => res.status(200).send({ data: user }))
-    .catch((err) => res.status(400).send({ message: `Ошибка изменения данных пользователя: ${err}` }));
+    .catch((err) => res.status(400).send({
+      message: `Ошибка изменения данных пользователя: ${err}`,
+    }));
 };
 
 const updateAvatar = (req, res) => {
   const { avatar } = req.body;
   const me = req.user._id;
-  User.findByIdAndUpdate(me, { avatar },
+  User.findByIdAndUpdate(
+    me,
+    { avatar },
     {
       new: true,
       runValidators: true,
       upsert: true,
-    })
+    },
+  )
     .then((user) => res.status(200).send({ data: user }))
-    .catch((err) => res.status(400).send({ message: `Ошибка изменения аватара пользователя: ${err}` }));
+    .catch((err) => res.status(400).send({
+      message: `Ошибка изменения аватара пользователя: ${err}`,
+    }));
 };
 
 function login(req, res, next) {
@@ -98,7 +114,7 @@ function login(req, res, next) {
   User.findUserByCredentials(email, password)
     .then((user) => {
       if (!user) {
-        res.status(401).send({ message: 'Email does not exist'})
+        res.status(401).send({ message: 'Email does not exist' });
         // throw new ValidationError('Email does not exist');
       }
       return user;
@@ -106,7 +122,8 @@ function login(req, res, next) {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', { expiresIn: '7d' },
+        NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+        { expiresIn: '7d' },
       );
       res.status(200).send({ token });
     })

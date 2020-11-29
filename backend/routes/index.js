@@ -7,7 +7,6 @@ const userRouter = require('./users');
 router.post('/signin', login);
 router.post('/signup', createUser);
 
-
 router.use('/cards', auth, cardsRouter);
 router.use('/users', auth, userRouter);
 

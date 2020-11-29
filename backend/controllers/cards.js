@@ -8,7 +8,9 @@ const getCards = (req, res) => {
       }
       return res.status(200).send({ data: cards });
     })
-    .catch((err) => res.status(500).send({ message: `Ошибка считывания файла карточек: ${err}` }));
+    .catch((err) => res
+      .status(500)
+      .send({ message: `Ошибка считывания файла карточек: ${err}` }));
 };
 
 const createCard = (req, res) => {
@@ -17,9 +19,13 @@ const createCard = (req, res) => {
     .then((card) => res.status(200).send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: `Ошибка валидации при создании карточки: ${err}` });
+        return res.status(400).send({
+          message: `Ошибка валидации при создании карточки: ${err}`,
+        });
       }
-      return res.status(500).send({ message: `Ошибка при создании карточки: ${err}` });
+      return res
+        .status(500)
+        .send({ message: `Ошибка при создании карточки: ${err}` });
     });
 };
 
@@ -29,13 +35,23 @@ const deleteCard = (req, res) => {
       if (!card) {
         return res.status(404).send({ message: 'Карточка не найдена' });
       }
+
+      // запрет удалять чужие карточки
+      if (card.owner.toString() !== req.user._id.toString()) {
+        return res.status(403).send({
+          message: 'У Вас нет прав для удаления чужой карточки',
+        });
+      }
+
       return res.status(200).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
         return res.status(404).send({ message: 'Карточка не найдена' });
       }
-      return res.status(500).send({ message: `Ошибка при удалении карточки: ${err}` });
+      return res
+        .status(500)
+        .send({ message: `Ошибка при удалении карточки: ${err}` });
     });
 };
 
@@ -55,7 +71,9 @@ const putLike = (req, res) => {
       if (err.name === 'CastError') {
         return res.status(404).send({ message: 'Карточка не найдена' });
       }
-      return res.status(500).send({ message: `Ошибка при проставлении лайка: ${err}` });
+      return res
+        .status(500)
+        .send({ message: `Ошибка при проставлении лайка: ${err}` });
     });
 };
 const deleteLike = (req, res) => {
@@ -74,7 +92,9 @@ const deleteLike = (req, res) => {
       if (err.name === 'CastError') {
         return res.status(404).send({ message: 'Карточка не найдена' });
       }
-      return res.status(500).send({ message: `Ошибка при удалении лайка: ${err}` });
+      return res
+        .status(500)
+        .send({ message: `Ошибка при удалении лайка: ${err}` });
     });
 };
 
