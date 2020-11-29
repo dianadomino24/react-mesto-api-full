@@ -1,3 +1,4 @@
+const { compare } = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
@@ -24,6 +25,5 @@ module.exports = (req, res, next) => {
   }
 
   req.user = payload; // записываем пейлоуд в объект запроса
-
   next(); // пропускаем запрос дальше
 };

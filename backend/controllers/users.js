@@ -18,16 +18,16 @@ const getUsers = (req, res) => {
 };
 
 const getUser = (req, res) => {
-  User.findById(req.params.id)
+  User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: 'Нет пользователя с таким id' });
+        return res.status(404).send({ message: 'Нет пользователя с таким id getUser' });
       }
       return res.status(200).send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res.status(404).send({ message: 'Нет пользователя с таким id' });
+        return res.status(404).send({ message: 'Нет пользователя с таким id getUser' });
       }
       return res.status(500).send({
         message: `Ошибка считывания файла пользователя: ${err}`,
@@ -36,14 +36,16 @@ const getUser = (req, res) => {
 };
 
 const getMe = (req, res, next) => {
-  User.findById(req.params.id)
+  User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: 'Нет пользователя с таким id' });
+        return res.status(404).send({ message: 'Нет пользователя с таким id getME' });
       }
       res.send(user);
     })
-    .catch(next);
+    .catch((err) => res
+      .status(500)
+      .send({ message: `Ошибка при запросе к своим данным getMe: ${err}` }));
 };
 
 const createUser = (req, res) => {
