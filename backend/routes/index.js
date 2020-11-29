@@ -1,13 +1,16 @@
-const router = require('express').Router();
+const routerIndex = require('express').Router();
 const { login, createUser } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 const cardsRouter = require('./cards');
 const userRouter = require('./users');
 
-router.post('/signin', login);
-router.post('/signup', createUser);
 
-router.use('/cards', auth, cardsRouter);
-router.use('/users', auth, userRouter);
 
-module.exports = router;
+routerIndex.post('/signin', login);
+routerIndex.post('/signup', createUser);
+
+
+routerIndex.use('/cards', auth, cardsRouter);
+routerIndex.use('/users', auth, userRouter);
+
+module.exports = {routerIndex};

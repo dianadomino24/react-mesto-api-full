@@ -1,6 +1,5 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const isEmail = require('validator/lib/isEmail');
 const User = require('../models/user');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -52,8 +51,14 @@ const createUser = (req, res, next) => {
     email, password, name, about, avatar,
   } = req.body;
 
-  bcrypt
-    .hash(password, 10)
+  User.findOne({ email })
+    .then((user) => {
+      if (user) {
+        return res.status(409).send({ message: 'Такой пользователь уже существует' });
+      }
+
+      return bcrypt.hash(password, 10);
+    })
     .then((hash) => User.create({
       email,
       password: hash,
@@ -61,7 +66,7 @@ const createUser = (req, res, next) => {
       about,
       avatar,
     }))
-    .then((user) => res.send({ data: user }))
+    .then(({ email, _id }) => res.send({ email, _id }))
 
     .catch((err) => res
       .status(400)
@@ -104,30 +109,35 @@ const updateAvatar = (req, res) => {
     }));
 };
 
-function login(req, res, next) {
+function login(req, res) {
   const { email, password } = req.body;
 
-  //   if (!(email && password)) {
-  //   return next(new IncorrectDataError('Поля email и password должны быть заполнены!'));
-  // }
+  console.log('LOGIIN!!!');
+  if (!(email && password)) {
+    return res.status(400).send({ message: 'Поля email и password должны быть заполнены.' });
+  }
 
   User.findUserByCredentials(email, password)
     .then((user) => {
       if (!user) {
-        res.status(401).send({ message: 'Email does not exist' });
-        // throw new ValidationError('Email does not exist');
+        return res.status(401).send({ message: 'Данный email не зарегистрирован' });
       }
-      return user;
+      bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (matched) {
+            const token = jwt.sign(
+              { _id: user._id },
+              NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+              { expiresIn: '7d' },
+            );
+            res.status(200).send({ token });
+          }
+          return res.status(401).send({ message: 'Неправильный логин или пароль' });
+        });
     })
-    .then((user) => {
-      const token = jwt.sign(
-        { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
-        { expiresIn: '7d' },
-      );
-      res.status(200).send({ token });
-    })
-    .catch(next);
+    .catch((err) => res.status(500).send({
+      message: `Ошибка сервера при логине: ${err}`,
+    }));
 }
 
 module.exports = {

@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
     default: defaultValues.avatar,
     validate: {
       validator(url) {
-        return validator.isUrl(url, [{ allow_underscores: true }]);
+        return validator.isURL(url, [{ allow_underscores: true }]);
       },
       message: (props) => `${props.value} is not a valid url!`,
     },
