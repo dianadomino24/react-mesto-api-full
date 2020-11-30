@@ -52,8 +52,7 @@ const createUser = (req, res, next) => {
       about,
       avatar,
     }))
-    .orFail(new BadRequestError('Ошибка валидации при создании пользователя'))
-    .then(({ email, _id }) => res.status(200).send({ email, _id }))
+    .then(({ email, _id }) =>  res.status(200).send({ email, _id }))
     .catch(next);
 };
 
@@ -110,7 +109,7 @@ function login(req, res, next) {
         );
         return res.status(200).send({ token });
       }
-      throw new UnauthorizedError('Не правильный логин или пароль');
+      throw new UnauthorizedError('Неправильный логин или пароль');
     }))
     .catch(next);
 }

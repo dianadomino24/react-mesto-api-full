@@ -7,8 +7,6 @@ const {
   getMe,
 } = require('../controllers/users');
 
-const auth = require('../middlewares/auth');
-
 const {
   validationUserData,
   validationAvatar,
