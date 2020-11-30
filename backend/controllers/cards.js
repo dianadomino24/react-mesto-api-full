@@ -9,7 +9,7 @@ const getCards = (req, res, next) => {
       if (!cards) {
         throw new NotFoundError('Карточки не найдены getCards');
       }
-      return res.status(200).send( cards );
+      return res.status(200).send(cards);
     })
     .catch(next);
 };
@@ -17,7 +17,7 @@ const getCards = (req, res, next) => {
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id;
-  Card.create({ name, link, owner})
+  Card.create({ name, link, owner })
     .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -30,15 +30,14 @@ const createCard = (req, res, next) => {
 
 const deleteCard = (req, res, next) => {
   Card.findById(req.params.cardId)
-  .orFail(new NotFoundError('Карточка не найдена'))
+    .orFail(new NotFoundError('Карточка не найдена'))
     .then((card) => {
       // запрет удалять чужие карточки
       if (card.owner.toString() !== req.user._id.toString()) {
         throw new ForbiddenError('У Вас нет прав для удаления чужой карточки');
       }
 
-      Card.findByIdAndRemove(req.params.cardId)
-        .then((deletedCard) => res.status(200).send(deletedCard));
+      Card.findByIdAndRemove(req.params.cardId).then((deletedCard) => res.status(200).send(deletedCard));
     })
     .catch(next);
 };
@@ -51,7 +50,7 @@ const putLike = (req, res, next) => {
   )
     .orFail(new NotFoundError('Карточка не найдена в БД'))
     .then((card) => {
-      res.status(200).send(card );
+      res.status(200).send(card);
     })
     .catch(next);
 };
@@ -64,7 +63,7 @@ const deleteLike = (req, res, next) => {
   )
     .orFail(new NotFoundError('Карточка не найдена в БД'))
     .then((card) => {
-      res.status(200).send( card );
+      res.status(200).send(card);
     })
     .catch(next);
 };

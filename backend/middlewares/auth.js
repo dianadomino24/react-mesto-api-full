@@ -4,12 +4,12 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 const { JWT_SECRET, NODE_ENV } = process.env;
 
 module.exports = (req, res, next) => {
-  console.log(req.params)
   // достаём авторизационный заголовок
   const { authorization } = req.headers;
   // убеждаемся, что он есть и начинается с Bearer
-  if (!authorization && !authorization.startsWith('Bearer ')) {
-    throw new UnauthorizedError( 'Необходима авторизация' );
+  // if (!authorization && !authorization.startsWith('Bearer '))
+  if (!authorization) {
+    throw new UnauthorizedError('Необходима авторизация');
   }
   // извлечём токен
   const token = authorization.replace('Bearer ', '');
@@ -22,13 +22,9 @@ module.exports = (req, res, next) => {
       NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
     );
   } catch (err) {
-    throw new UnauthorizedError( 'Необходима авторизация, неверный токен' );
+    throw new UnauthorizedError('Необходима авторизация, неверный токен');
   }
   // записываем пейлоуд в объект запроса
   req.user = payload;
   next(); // пропускаем запрос дальше
 };
-
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // const requestedUser = req.path.substring(1);
-  // req.requestedUser = {_id: requestedUser };

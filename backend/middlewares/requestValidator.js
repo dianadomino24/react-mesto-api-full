@@ -10,10 +10,7 @@ const validationUser = celebrate({
 const validationCard = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string()
-      .required()
-      .min(9)
-      .uri(),
+    link: Joi.string().required().min(9).uri(),
   }),
 });
 
@@ -26,23 +23,19 @@ const validationUserData = celebrate({
 
 const validationAvatar = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string()
-      .required()
-      .uri(),
+    avatar: Joi.string().required().uri(),
   }),
 });
 
 const validationUserId = celebrate({
   params: Joi.object().keys({
-    id: Joi.string().required().length(24)
-      .hex(),
+    userId: Joi.string().required().length(24).hex(),
   }),
 });
 
 const validationCardId = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().required().length(24)
-      .hex(),
+    cardId: Joi.string().required().length(24).hex(),
   }),
 });
 
