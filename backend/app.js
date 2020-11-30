@@ -22,6 +22,13 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 app.use(requestLogger);
+// !!!!!!!!!!!!!!!!!!!!!убрать после успешного ревью!!!!!!!!!!!!!!!!!!!!!!!!!
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use('/', routerIndex);
 app.use(errorLogger);
 
@@ -34,7 +41,7 @@ app.use(() => {
 
 // здесь обрабатываем все ошибки
 app.use((err, req, res, next) => {
-  res.status(500).send({ message: `На сервере произошла ошибка app: ${err}` });
+  res.status(err.statusCode).send({ message: err.message });
 });
 
 app.listen(PORT, () => {

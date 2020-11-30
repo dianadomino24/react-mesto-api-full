@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
   // убеждаемся, что он есть и начинается с Bearer
   if (!authorization && !authorization.startsWith('Bearer ')) {
-    throw new UnauthorizedError({ message: 'Необходима авторизация' });
+    throw new UnauthorizedError( 'Необходима авторизация' );
   }
   // извлечём токен
   const token = authorization.replace('Bearer ', '');
@@ -22,12 +22,10 @@ module.exports = (req, res, next) => {
       NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
     );
   } catch (err) {
-    throw new UnauthorizedError({ message: 'Необходима авторизация, неверный токен' });
+    throw new UnauthorizedError( 'Необходима авторизация, неверный токен' );
   }
   // записываем пейлоуд в объект запроса
   req.user = payload;
-
-
   next(); // пропускаем запрос дальше
 };
 

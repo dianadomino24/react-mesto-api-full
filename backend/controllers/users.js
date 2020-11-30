@@ -10,7 +10,7 @@ const getUsers = (req, res) => {
       if (!users) {
         return res.status(404).send({ message: 'Пользователи не найдены' });
       }
-      return res.status(200).send({ data: users });
+      return res.status(200).send(users );
     })
     .catch((err) => res.status(500).send({
       message: `Ошибка считывания файла пользователей: ${err}`,
@@ -24,7 +24,7 @@ const getUser = (req, res) => {
       if (!user) {
         return res.status(404).send({ message: 'Нет пользователя с таким id getUser' });
       }
-      return res.status(200).send({ data: user });
+      return res.status(200).send( user );
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -88,7 +88,7 @@ const updateUser = (req, res) => {
       upsert: true, // если пользователь не найден, он будет создан
     },
   )
-    .then((user) => res.status(200).send({ data: user }))
+    .then((user) => res.status(200).send( user ))
     .catch((err) => res.status(400).send({
       message: `Ошибка изменения данных пользователя: ${err}`,
     }));
@@ -106,7 +106,7 @@ const updateAvatar = (req, res) => {
       upsert: true,
     },
   )
-    .then((user) => res.status(200).send({ data: user }))
+    .then((user) => res.status(200).send( user ))
     .catch((err) => res.status(400).send({
       message: `Ошибка изменения аватара пользователя: ${err}`,
     }));
