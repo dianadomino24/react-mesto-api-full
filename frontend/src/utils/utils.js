@@ -8,3 +8,5 @@ export const formSelectorsObj = {
     errorActiveClass: 'popup__input-error_active',
     controlSelector: '.popup__label',
 }
+
+export const BASE_URL = 'https://www.dianadomino24.students.nomoreparties.space'
