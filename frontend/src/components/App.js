@@ -19,7 +19,6 @@ import * as auth from '../utils/auth.js'
 import { getToken, removeToken } from '../utils/token'
 import { setToken } from '../utils/token'
 
-const TOKEN_KEY = 'jwt'
 
 function App() {
   //состояние попапов
@@ -86,9 +85,8 @@ function App() {
   useEffect(() => {
     Promise.all([api.getItems('/users/me'), api.getItems('/cards')])
       .then((values) => {
-        console.log('onMount', localStorage.getItem(TOKEN_KEY))
         const [userData, serverCards] = values
-        console.log('userData', userData)
+
         // отображает данные пользователья в профиле
         setCurrentUser(userData)
 
@@ -254,16 +252,8 @@ function App() {
   }
 
   function onSignOut() {
-    console.log('onsignOut', localStorage.getItem(TOKEN_KEY))
     removeToken()
-    console.log('onsignOut after', localStorage.getItem(TOKEN_KEY))
     setLoggedIn(false)
-    //     setCurrentUser({
-    //   name: '',
-    //   about: '',
-    //   avatar: '',
-    //   _id: '',
-    // });
     history.push('/sign-in')
   }
 
@@ -276,9 +266,7 @@ function App() {
           return false
         }
         if (data.token) {
-          console.log('setTok login', localStorage.getItem(TOKEN_KEY))
           setToken(data.token)
-          console.log('token', data.token)
           setMessage('')
 
           setUserEmail({ email: email })
@@ -344,7 +332,6 @@ function App() {
           const userCurrentEmail = {
             email: res.email,
           }
-          console.log('tokenCheck', localStorage.getItem(TOKEN_KEY))
           setLoggedIn(true)
           setUserEmail(userCurrentEmail)
           history.push('/')
