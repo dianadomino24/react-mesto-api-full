@@ -21,6 +21,11 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
+app.use('*', cors({
+  origin: 'https://www.dianadomino24.students.nomoreparties.space',
+  credentials: true,
+}));
+
 app.use(requestLogger);
 // !!!!!!!!!!!!!!!!!!!!!убрать после успешного ревью!!!!!!!!!!!!!!!!!!!!!!!!!
 app.get('/crash-test', () => {

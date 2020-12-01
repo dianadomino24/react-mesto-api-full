@@ -13,14 +13,13 @@
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.3"
     },
-    "homepage": "https://dianadomino24.github.io/react-mesto-auth/",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "predeploy": "npm run build",
-        "deploy": "npm run build && scp -r ./build/* dianadomino24@178.154.233.146:/home/dianadomino24/news-frontend"
+        "deploy": "npm run build && scp -r ./build/* dianadomino24@178.154.233.146:/home/dianadomino24/react-mesto-api-full/frontend"
     },
     "eslintConfig": {
         "extends": "react-app"
