@@ -9,4 +9,4 @@ export const formSelectorsObj = {
     controlSelector: '.popup__label',
 }
 
-export const BASE_URL = 'https://www.dianadomino24.students.nomoreparties.space'
+export const BASE_URL = 'https://www.api.dianadomino24.students.nomoreparties.space'

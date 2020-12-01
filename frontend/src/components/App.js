@@ -250,7 +250,7 @@ function App() {
 
     function onSignOut() {
         removeToken()
-        history.push('/sign-in')
+        history.push('/signin')
     }
 
     function handleLogin(email, password) {
@@ -300,7 +300,7 @@ function App() {
                         setMessage('')
                         handleRegisterSuccess()
                         infoTooltipOpen()
-                        history.push('/sign-in')
+                        history.push('/signin')
                     }
                 }
             })
