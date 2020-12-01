@@ -250,7 +250,7 @@ function App() {
 
     function onSignOut() {
         removeToken()
-        history.push('/signin')
+        history.push('/sign-in')
     }
 
     function handleLogin(email, password) {
@@ -296,12 +296,12 @@ function App() {
         auth.register(email, password)
             .then((res) => {
                 if (res) {
-                    if (res.data) {
+
                         setMessage('')
                         handleRegisterSuccess()
                         infoTooltipOpen()
                         history.push('/signin')
-                    }
+
                 }
             })
             .catch((err) => {
@@ -329,7 +329,7 @@ function App() {
             .then((res) => {
                 if (res) {
                     const userCurrentEmail = {
-                        email: res.data.email,
+                        email: res.email,
                     }
                     setLoggedIn(true)
                     setUserEmail(userCurrentEmail)
