@@ -68,13 +68,14 @@ class Api {
     }
 }
 
-const token = '3829caf2-6683-412f-9e00-d0870fcd1817'
-const cohort = 'cohort-14'
+// const token = '3829caf2-6683-412f-9e00-d0870fcd1817'
+// const cohort = 'cohort-14'
 
 const api = new Api({
     baseUrl: BASE_URL,
     headers: {
-        authorization: token,
+        Accept: 'application/json',
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json',
     },
 })

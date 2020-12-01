@@ -100,7 +100,7 @@ function App() {
             })
             .catch((err) => {
                 console.log(
-                    `Загрузка информации о пользователе и карточек: ${err}`
+                    `Загрузка информации о пользователе и карточках: ${err}`
                 )
             })
     }, [])
@@ -262,6 +262,7 @@ function App() {
                 }
                 if (data.token) {
                     setToken(data.token)
+                    console.log('token', data.token)
                     setMessage('')
 
                     setUserEmail({ email: email })
@@ -300,7 +301,7 @@ function App() {
                         setMessage('')
                         handleRegisterSuccess()
                         infoTooltipOpen()
-                        history.push('/signin')
+                        history.push('/sign-in')
 
                 }
             })
