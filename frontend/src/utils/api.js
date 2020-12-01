@@ -42,9 +42,9 @@ class Api {
 
     changeLikeCardStatus(cardId, notLiked) {
         if (notLiked) {
-            return this.replaceItem('cards/likes', cardId)
+            return this.replaceItem('/cards/likes', cardId)
         } else {
-            return this.deleteItem('cards/likes', cardId)
+            return this.deleteItem('/cards/likes', cardId)
         }
     }
 

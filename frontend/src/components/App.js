@@ -344,7 +344,7 @@ function App() {
     // при монтировании компонента будет проверять токен
     useEffect(() => {
         tokenCheck()
-    }, [])
+    }, [loggedIn, history])
 
     return (
         <div className="page">
