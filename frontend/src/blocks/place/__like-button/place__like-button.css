@@ -1,16 +1,16 @@
 .place__like-button {
-    width: 21px;
-    height: 18px;
-    margin-bottom: 3px;
-    background-image: url('../../../images/like-button.svg');
-    object-fit: contain;
-    background-repeat: no-repeat;
-    transition: 0.3s;
+  width: 21px;
+  height: 18px;
+  margin-bottom: 3px;
+  background-image: url('../../../images/like-button.svg');
+  object-fit: contain;
+  background-repeat: no-repeat;
+  transition: 0.3s;
 }
 /* .place__like-button-container:hover + .place__like-button {
     transform: scale(1.3);
 } */
 .place__like-button:hover {
-    transform: scale(1.3);
-    cursor: pointer;
+  transform: scale(1.3);
+  cursor: pointer;
 }

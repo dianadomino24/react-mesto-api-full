@@ -1,11 +1,11 @@
 .place__like-button-container {
-    background: none;
-    margin-right: 21px;
-    border: none;
-    box-shadow: none;
-    outline: none;
-    display: block;
-    padding: 0;
+  background: none;
+  margin-right: 21px;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  display: block;
+  padding: 0;
 }
 /* .place__like-button-container:hover {
     cursor: pointer;

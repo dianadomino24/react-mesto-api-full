@@ -1,16 +1,16 @@
 .header__link {
-    font-family: Inter;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.2;
-    color: #ffffff;
-    text-decoration: none;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #ffffff;
+  text-decoration: none;
 }
 .header__link:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 @media screen and (max-width: 500px) {
-    .header__link {
-        margin-right: 21%;
-    }
+  .header__link {
+    margin-right: 21%;
+  }
 }

@@ -1,14 +1,14 @@
 .popup__input_type_dark {
-    background-color: #000000;
-    border-bottom: 2px solid #cccccc;
-    margin-bottom: 30px;
-    color: #fff;
-    -webkit-autofill: ;
+  background-color: #000000;
+  border-bottom: 2px solid #cccccc;
+  margin-bottom: 30px;
+  color: #fff;
+  -webkit-autofill: ;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-text-fill-color: #fff;
-    -webkit-box-shadow: 0 0 0 30px #000 inset;
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0 30px #000 inset;
 }

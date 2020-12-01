@@ -7,16 +7,16 @@
 @import url(./__add-button/profile__add-button.css);
 
 .profile {
-    font-family: 'Inter', Arial, sans-serif;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 50px;
+  font-family: 'Inter', Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 50px;
 }
 
 @media screen and (max-width: 900px) {
-    .profile {
-        flex-direction: column;
-        margin-bottom: 36px;
-    }
+  .profile {
+    flex-direction: column;
+    margin-bottom: 36px;
+  }
 }

@@ -52,7 +52,7 @@ const createUser = (req, res, next) => {
       about,
       avatar,
     }))
-    .then(({ email, _id }) =>  res.status(200).send({ email, _id }))
+    .then(({ email, _id }) => res.status(200).send({ email, _id }))
     .catch(next);
 };
 
@@ -74,7 +74,6 @@ const updateUser = (req, res, next) => {
 };
 
 const updateAvatar = (req, res, next) => {
-
   const { avatar } = req.body;
   const me = req.user._id;
   User.findByIdAndUpdate(

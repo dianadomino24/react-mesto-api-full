@@ -21,18 +21,18 @@
 @import url(__infotool-text/popup__infotool-text.css);
 
 .popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    color: #000000;
-    font-family: 'Inter', Arial, sans-serif;
-    box-sizing: border-box;
-    display: flex;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.4s linear, opacity 0.4s linear;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-family: 'Inter', Arial, sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.4s linear, opacity 0.4s linear;
 }
