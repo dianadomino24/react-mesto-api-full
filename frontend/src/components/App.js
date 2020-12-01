@@ -82,7 +82,7 @@ function App() {
 
     // при монтировании компонента будет совершать запрос в API за пользовательскими данными и карточками
     useEffect(() => {
-        Promise.all([api.getItems('users/me'), api.getItems('cards')])
+        Promise.all([api.getItems('/users/me'), api.getItems('/cards')])
             .then((values) => {
                 const [userData, serverCards] = values
                 // отображает данные пользователья в профиле
@@ -143,7 +143,7 @@ function App() {
         )
         // ожидание загрузки
         renderLoading(true, cardDeleteSubmitButton, defaultYesText)
-        api.deleteItem('cards', card._id)
+        api.deleteItem('/cards', card._id)
             .then(() => {
                 //вызывает удаление карточки из разметки
                 cardDOMElement.remove()
@@ -177,7 +177,7 @@ function App() {
                 name: userData.name.trim(),
                 about: userData.about.trim(),
             },
-            'users/me'
+            '/users/me'
         )
             .then((res) => {
                 //установим новые данные профиля в разметке
@@ -201,7 +201,7 @@ function App() {
         // до получения ответа от сервера покажет пользователю надпись о процессе загрузки
         renderLoading(true, avatarSubmitButton, defaultSaveText)
 
-        api.changeItem({ avatar: userData.avatar }, 'users/me/avatar')
+        api.changeItem({ avatar: userData.avatar }, '/users/me/avatar')
             .then((res) => {
                 //установим новые данные профиля
                 setCurrentUser(res)
@@ -228,7 +228,7 @@ function App() {
         // до получения ответа от сервера покажет пользователю надпись о процессе загрузки
         renderLoading(true, placeSubmitButton, defaultCreateText)
 
-        api.createItem(newCard, 'cards')
+        api.createItem(newCard, '/cards')
             // создаст ее в разметке
             .then((newCard) => {
                 setCards([newCard, ...cards])
