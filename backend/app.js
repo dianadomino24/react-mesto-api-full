@@ -25,8 +25,12 @@ app.use('*', cors({
   origin: 'https://dianadomino24.students.nomoreparties.space',
   credentials: true,
 }));
+app.use('*', cors({
+  origin: 'https://www.dianadomino24.students.nomoreparties.space',
+  credentials: true,
+}));
 
-app.options('*', cors());
+// app.options('*', cors());
 
 app.use(requestLogger);
 // !!!!!!!!!!!!!!!!!!!!!убрать после успешного ревью!!!!!!!!!!!!!!!!!!!!!!!!!
