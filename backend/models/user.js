@@ -23,21 +23,18 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true,
     minlength: 2,
     maxlength: 30,
     default: defaultValues.name,
   },
   about: {
     type: String,
-    required: true,
     minlength: 2,
     maxlength: 30,
     default: defaultValues.about,
   },
   avatar: {
     type: String,
-    required: true,
     default: defaultValues.avatar,
     validate: {
       validator(url) {
