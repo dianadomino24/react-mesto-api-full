@@ -46,7 +46,6 @@ class Api {
     return fetch(this.baseUrl.concat(title).concat(`/${id}`), {
       method: 'PUT',
       headers: this.headers,
-      // body: JSON.stringify(item)
     }).then((res) => this._getResponseData(res))
   }
 
@@ -58,9 +57,6 @@ class Api {
   }
 }
 
-// const token = '3829caf2-6683-412f-9e00-d0870fcd1817'
-// const cohort = 'cohort-14'
-
 const api = new Api({
   baseUrl: BASE_URL,
   headers: {
@@ -71,6 +67,9 @@ const api = new Api({
 })
 
 export default api
+
+// const token = '3829caf2-6683-412f-9e00-d0870fcd1817'
+// const cohort = 'cohort-14'
 
 //  - получить список всех карточек в виде массива (GET)
 //  - добавить карточку (POST)
