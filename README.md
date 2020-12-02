@@ -5,6 +5,8 @@
 ## Где найти проект
 - Адрес проекта: https://dianadomino24.students.nomoreparties.space
 
+- Доменное имя backend сервера: http://api.dianadomino24.students.nomoreparties.space
+
 - Публичный IP-адрес сервера : 178.154.233.146
 
 <!-- ## Запуск проекта

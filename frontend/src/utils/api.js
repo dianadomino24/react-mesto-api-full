@@ -12,12 +12,11 @@ class Api {
     }
     return Promise.reject(new Error(`Ошибка: ${res.status}`))
   }
+
   getItems(label) {
     return fetch(this.baseUrl.concat(label), {
       headers: this.headers,
-    }).then((res) => {
-      return this._getResponseData(res)
-    })
+    }).then((res) => this._getResponseData(res))
   }
 
   createItem(item, label) {
@@ -25,9 +24,7 @@ class Api {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify(item),
-    }).then((res) => {
-      return this._getResponseData(res)
-    })
+    }).then((res) => this._getResponseData(res))
   }
 
   changeItem(item, title) {
@@ -35,17 +32,14 @@ class Api {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify(item),
-    }).then((res) => {
-      return this._getResponseData(res)
-    })
+    }).then((res) => this._getResponseData(res))
   }
 
   changeLikeCardStatus(cardId, notLiked) {
     if (notLiked) {
       return this.replaceItem('/cards/likes', cardId)
-    } else {
-      return this.deleteItem('/cards/likes', cardId)
     }
+    return this.deleteItem('/cards/likes', cardId)
   }
 
   replaceItem(title, id) {
@@ -53,18 +47,14 @@ class Api {
       method: 'PUT',
       headers: this.headers,
       // body: JSON.stringify(item)
-    }).then((res) => {
-      return this._getResponseData(res)
-    })
+    }).then((res) => this._getResponseData(res))
   }
 
   deleteItem(title, id) {
     return fetch(this.baseUrl.concat(title).concat(`/${id}`), {
       method: 'DELETE',
       headers: this.headers,
-    }).then((res) => {
-      return this._getResponseData(res)
-    })
+    }).then((res) => this._getResponseData(res))
   }
 }
 

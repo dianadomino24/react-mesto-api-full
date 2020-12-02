@@ -19,7 +19,6 @@ import * as auth from '../utils/auth.js'
 import { getToken, removeToken } from '../utils/token'
 import { setToken } from '../utils/token'
 
-
 function App() {
   //состояние попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)

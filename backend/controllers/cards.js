@@ -37,7 +37,8 @@ const deleteCard = (req, res, next) => {
         throw new ForbiddenError('У Вас нет прав для удаления чужой карточки');
       }
 
-      Card.findByIdAndRemove(req.params.cardId).then((deletedCard) => res.status(200).send(deletedCard));
+      Card.findByIdAndRemove(req.params.cardId)
+        .then((deletedCard) => res.status(200).send(deletedCard));
     })
     .catch(next);
 };

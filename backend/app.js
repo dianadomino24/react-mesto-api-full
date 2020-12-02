@@ -60,7 +60,7 @@ app.use(() => {
 });
 
 // здесь обрабатываем все ошибки
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(err.status || 500).send({ message: err.message || 'На сервере произошла ошибка' });
 });
 
