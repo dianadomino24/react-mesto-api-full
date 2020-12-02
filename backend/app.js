@@ -61,7 +61,7 @@ app.use(() => {
 
 // здесь обрабатываем все ошибки
 app.use((err, req, res, next) => {
-  res.status(err.statusCode || 500).send({ message: err.message || 'На сервере произошла ошибка' });
+  res.status(err.status || 500).send({ message: err.message || 'На сервере произошла ошибка' });
 });
 
 app.listen(PORT, () => {
