@@ -60,8 +60,8 @@ app.use(() => {
 });
 
 // здесь обрабатываем все ошибки
-app.use((err, req, res) => {
-  res.status(err.status).send({ message: err.message || 'На сервере произошла ошибка' });
+app.use((err, req, res, next) => {
+  res.status(err.status).send({ message: err.message });
 });
 
 app.listen(PORT, () => {
