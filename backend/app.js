@@ -10,8 +10,6 @@ const NotFoundError = require('./errors/NotFoundError');
 const app = express();
 const { PORT = 3000 } = process.env;
 
-app.use(cors());
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -21,10 +19,25 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-app.use('*', cors({
-  origin: 'https://dianadomino24.students.nomoreparties.space',
-  credentials: true,
-}));
+const allowedOrigins = [
+  'https://dianadomino24.students.nomoreparties.space',
+  'https://www.dianadomino24.students.nomoreparties.space',
+];
+app.use(cors());
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  next();
+});
+// app.use('*', cors({
+//   origin: 'https://dianadomino24.students.nomoreparties.space',
+//   credentials: true,
+// }));
 
 app.options('*', cors());
 
