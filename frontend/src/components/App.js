@@ -49,7 +49,8 @@ function App() {
   const [userEmail, setUserEmail] = useState({ email: '' })
   const [loggedIn, setLoggedIn] = useState(false)
   const history = useHistory()
-  const [message, setMessage] = useState('')
+  const [messageLogin, setMessageLogin] = useState('')
+  const [messageRegister, setMessageRegister] = useState('')
   // для показа (не)успешной регистрации
   const [registerSuccess, setRegisterSuccess] = useState(false)
 
@@ -85,12 +86,9 @@ function App() {
 
   // при монтировании компонента будет совершать запрос в API за пользовательскими данными и карточками
   useEffect(() => {
-    console.log('onMountBefore', localStorage.getItem(TOKEN_KEY))
     Promise.all([api.getItems('/users/me'), api.getItems('/cards')])
       .then((values) => {
         const [userData, serverCards] = values
-        console.log('onMount USERDATA', userData)
-        console.log('onMount', localStorage.getItem(TOKEN_KEY))
         // отображает данные пользователья в профиле
         setCurrentUser(userData)
 
@@ -256,12 +254,8 @@ function App() {
   }
 
   function onSignOut() {
-    console.log('onSigbOUT', localStorage.getItem(TOKEN_KEY))
     removeToken()
-    console.log('onSigbOUT 2', localStorage.getItem(TOKEN_KEY))
-    console.log('onSigbOUT ', currentUser)
     setLoggedIn(false)
-    console.log('onSigbOUT 2', currentUser)
     history.push('/sign-in')
   }
 
@@ -270,12 +264,12 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         if (!data) {
-          setMessage('Что-то пошло не так при авторизации.')
+          setMessageLogin('Что-то пошло не так при авторизации.')
           return false
         }
         if (data.token) {
           setToken(data.token)
-          setMessage('')
+          setMessageLogin('')
 
           setUserEmail({ email: email })
           setLoggedIn(true)
@@ -284,7 +278,7 @@ function App() {
         }
       })
       .catch((err) => {
-        setMessage('Ошибка при авторизации.')
+        setMessageLogin('Ошибка при авторизации.')
         handleRegisterFail()
         infoTooltipOpen()
         if (err === 401) {
@@ -308,14 +302,14 @@ function App() {
       .register(email, password)
       .then((res) => {
         if (res) {
-          setMessage('')
+          setMessageRegister('')
           handleRegisterSuccess()
           infoTooltipOpen()
           history.push('/sign-in')
         }
       })
       .catch((err) => {
-        setMessage('Ошибка при регистрации в Register')
+        setMessageRegister('Ошибка при регистрации в Register')
         handleRegisterFail()
         infoTooltipOpen()
         if (err === 400) {
@@ -349,7 +343,7 @@ function App() {
         console.log(`getContent: ${err}`)
       })
   }
-  // при монтировании компонента будет проверять токен
+  // при монтировании компонента и переключениях рута будет проверять токен
   useEffect(() => {
     tokenCheck()
   }, [loggedIn, history])
@@ -361,12 +355,12 @@ function App() {
           <Header onSignOut={onSignOut} userEmail={userEmail} />
           <Switch>
             <Route path="/sign-up">
-              <Register onRegister={handleRegister} message={message} />
+              <Register onRegister={handleRegister} message={messageRegister} />
             </Route>
             <Route path="/sign-in">
               <Login
                 onLogin={handleLogin}
-                message={message}
+                message={messageLogin}
                 loggedIn={loggedIn}
               />
             </Route>
