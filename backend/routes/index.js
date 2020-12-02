@@ -4,10 +4,10 @@ const auth = require('../middlewares/auth');
 const cardsRouter = require('./cards');
 const userRouter = require('./users');
 
-const { validationUser } = require('../middlewares/requestValidator');
+const { validationUser, validationUserSignUp } = require('../middlewares/requestValidator');
 
 routerIndex.post('/signin', validationUser, login);
-routerIndex.post('/signup', validationUser, createUser);
+routerIndex.post('/signup', validationUserSignUp, createUser);
 
 routerIndex.use('/cards', auth, cardsRouter);
 routerIndex.use('/users', auth, userRouter);

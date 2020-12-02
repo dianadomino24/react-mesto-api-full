@@ -38,13 +38,14 @@ const userSchema = new mongoose.Schema({
     default: defaultValues.avatar,
     validate: {
       validator(v) {
+        // eslint-disable-next-line no-useless-escape
         return /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(v);
       },
       message: (props) => `${props.value} is not a valid url!`,
     },
   },
 });
-
+// eslint-disable-next-line func-names
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email })
     .select('+password')

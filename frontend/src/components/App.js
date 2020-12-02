@@ -19,6 +19,9 @@ import * as auth from '../utils/auth.js'
 import { getToken, removeToken } from '../utils/token'
 import { setToken } from '../utils/token'
 
+const TOKEN_KEY = 'jwt'
+
+
 function App() {
   //состояние попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -82,10 +85,12 @@ function App() {
 
   // при монтировании компонента будет совершать запрос в API за пользовательскими данными и карточками
   useEffect(() => {
+    console.log('onMountBefore', localStorage.getItem(TOKEN_KEY))
     Promise.all([api.getItems('/users/me'), api.getItems('/cards')])
       .then((values) => {
         const [userData, serverCards] = values
-
+        console.log('onMount USERDATA', userData)
+        console.log('onMount', localStorage.getItem(TOKEN_KEY))
         // отображает данные пользователья в профиле
         setCurrentUser(userData)
 
@@ -251,8 +256,12 @@ function App() {
   }
 
   function onSignOut() {
+    console.log('onSigbOUT', localStorage.getItem(TOKEN_KEY))
     removeToken()
+    console.log('onSigbOUT 2', localStorage.getItem(TOKEN_KEY))
+    console.log('onSigbOUT ', currentUser)
     setLoggedIn(false)
+    console.log('onSigbOUT 2', currentUser)
     history.push('/sign-in')
   }
 

@@ -1,9 +1,8 @@
 import { BASE_URL } from './utils'
 
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl }) {
     this.baseUrl = baseUrl
-    this.headers = headers
   }
 
   _getResponseData(res) {
@@ -15,14 +14,22 @@ class Api {
 
   getItems(label) {
     return fetch(this.baseUrl.concat(label), {
-      headers: this.headers,
+      headers: {
+        Accept: 'application/json',
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
     }).then((res) => this._getResponseData(res))
   }
 
   createItem(item, label) {
     return fetch(this.baseUrl.concat(label), {
       method: 'POST',
-      headers: this.headers,
+      headers: {
+        Accept: 'application/json',
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(item),
     }).then((res) => this._getResponseData(res))
   }
@@ -30,7 +37,11 @@ class Api {
   changeItem(item, title) {
     return fetch(this.baseUrl.concat(title), {
       method: 'PATCH',
-      headers: this.headers,
+      headers: {
+        Accept: 'application/json',
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(item),
     }).then((res) => this._getResponseData(res))
   }
@@ -45,25 +56,28 @@ class Api {
   replaceItem(title, id) {
     return fetch(this.baseUrl.concat(title).concat(`/${id}`), {
       method: 'PUT',
-      headers: this.headers,
+      headers: {
+        Accept: 'application/json',
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
     }).then((res) => this._getResponseData(res))
   }
 
   deleteItem(title, id) {
     return fetch(this.baseUrl.concat(title).concat(`/${id}`), {
       method: 'DELETE',
-      headers: this.headers,
+      headers: {
+        Accept: 'application/json',
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
     }).then((res) => this._getResponseData(res))
   }
 }
 
 const api = new Api({
   baseUrl: BASE_URL,
-  headers: {
-    Accept: 'application/json',
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    'Content-Type': 'application/json',
-  },
 })
 
 export default api

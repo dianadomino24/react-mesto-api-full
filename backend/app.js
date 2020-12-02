@@ -34,10 +34,6 @@ app.use((req, res, next) => {
 
   next();
 });
-// app.use('*', cors({
-//   origin: 'https://dianadomino24.students.nomoreparties.space',
-//   credentials: true,
-// }));
 
 app.options('*', cors());
 
@@ -60,10 +56,12 @@ app.use(() => {
 });
 
 // здесь обрабатываем все ошибки
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   res.status(err.status || 500).send({ message: err.message || 'На сервере произошла ошибка' });
 });
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`App listening on port ${PORT}`);
 });
