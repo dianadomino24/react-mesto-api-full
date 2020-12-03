@@ -1,28 +1,28 @@
-import React, { useState } from 'react'
-import RegisterLoginTemplate from './RegisterLoginTemplate'
+import React, {useEffect} from 'react'
+import RegisterLoginTemplate from './RegisterLoginTemplate';
+import useFormWithValidation from '../hooks/useForm';
 
-const Login = ({ onLogin, message, loggedIn }) => {
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-  })
+const Login = ({ onLogin, loggedIn }) => {
+    const {
+    values,
+    handleChange,
+    errors,
+    resetForm,
+  } = useFormWithValidation();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }))
+  const handleFormChange = (e) => {
+    handleChange(e);
   }
+
+      useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { email, password } = data
-
-    if (!email || !password) {
-      return
-    }
+    const { email, password } = values
     onLogin(email, password)
+    resetForm()
   }
 
   React.useEffect(() => {
@@ -37,32 +37,32 @@ const Login = ({ onLogin, message, loggedIn }) => {
         <label className="popup__label">
           <input
             type="email"
-            value={data.email}
-            onChange={handleChange}
+            value={values.email}
+            onChange={handleFormChange}
             name="email"
             placeholder="Email"
             id="email"
             className="input popup__input popup__input_type_dark"
             required
             minLength="2"
-            maxLength="320"
+            maxLength="80"
           />
-          <span className="popup__input-error">{message}</span>
+          <span className="popup__input-error popup__input-error_active">{errors.email}</span>
         </label>
         <label className="popup__label">
           <input
             type="password"
-            value={data.password}
-            onChange={handleChange}
+            value={values.password}
+            onChange={handleFormChange}
             name="password"
             id="password"
             placeholder="Пароль"
             className="input popup__input popup__input_type_dark"
             required
-            minLength="2"
-            maxLength="200"
+            minLength="6"
+            maxLength="15"
           />
-          <span className="popup__input-error">{message}</span>
+          <span className="popup__input-error popup__input-error_active">{errors.password}</span>
         </label>
         <button
           className="link popup__save-button popup__save-button_type_dark"
