@@ -8,6 +8,13 @@
   margin-bottom: 35px;
   box-sizing: border-box;
 }
+.popup__input:-webkit-autofill,
+.popup__input:-webkit-autofill:hover,
+.popup__input:-webkit-autofill:focus,
+.popup__input:-webkit-autofill:active {
+  -webkit-text-fill-color: #000;
+  -webkit-box-shadow: 0 0 0 30px transparent inset;
+}
 
 .popup__input::placeholder {
   color: #c4c4c4;
