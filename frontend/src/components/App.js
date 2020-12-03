@@ -49,8 +49,7 @@ function App() {
   const [userEmail, setUserEmail] = useState({ email: '' })
   const [loggedIn, setLoggedIn] = useState(false)
   const history = useHistory()
-  const [messageLogin, setMessageLogin] = useState('')
-  const [messageRegister, setMessageRegister] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   // для показа (не)успешной регистрации
   const [registerSuccess, setRegisterSuccess] = useState(false)
 
@@ -264,12 +263,12 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         if (!data) {
-          setMessageLogin('Что-то пошло не так при авторизации.')
+          setErrorMessage('Что-то пошло не так при авторизации.')
           return false
         }
         if (data.token) {
           setToken(data.token)
-          setMessageLogin('')
+          setErrorMessage('')
 
           setUserEmail({ email: email })
           setLoggedIn(true)
@@ -278,13 +277,13 @@ function App() {
         }
       })
       .catch((err) => {
-        setMessageLogin('Ошибка при авторизации.')
+        setErrorMessage(`Ошибка: ${err.message}`)
         handleRegisterFail()
         infoTooltipOpen()
-        if (err === 401) {
+        if (err.status === 401) {
           return console.log(`Пользователь с email не найден : ${err}`)
         }
-        if (err === 400) {
+        if (err.status === 400) {
           return console.log(`Не передано одно из полей : ${err}`)
         }
         console.log(`App authorize Error: ${err}`)
@@ -302,21 +301,17 @@ function App() {
       .register(email, password)
       .then((res) => {
         if (res) {
-          setMessageRegister('')
+          setErrorMessage('')
           handleRegisterSuccess()
           infoTooltipOpen()
           history.push('/sign-in')
         }
       })
       .catch((err) => {
-        setMessageRegister('Ошибка при регистрации в Register')
+        setErrorMessage(`Ошибка: ${err.message}`)
         handleRegisterFail()
         infoTooltipOpen()
-        if (err === 400) {
-          return console.log(`Некорректно заполнено одно из полей : ${err}`)
-        }
-
-        console.log(`App onRegister: ${err}`)
+        console.log(`App onRegister: ${err.message}`)
       })
   }
 
@@ -355,12 +350,11 @@ function App() {
           <Header onSignOut={onSignOut} userEmail={userEmail} />
           <Switch>
             <Route path="/sign-up">
-              <Register onRegister={handleRegister} message={messageRegister} />
+              <Register onRegister={handleRegister} />
             </Route>
             <Route path="/sign-in">
               <Login
                 onLogin={handleLogin}
-                message={messageLogin}
                 loggedIn={loggedIn}
               />
             </Route>
@@ -384,6 +378,7 @@ function App() {
             isOpen={isInfoTooltipOpen}
             onClose={closeAllPopups}
             isSuccess={registerSuccess}
+            errorMessage={errorMessage}
           />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}

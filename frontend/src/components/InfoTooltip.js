@@ -2,7 +2,7 @@ import React from 'react'
 import success from '../images/success-icon.svg'
 import fail from '../images/fail-icon.svg'
 
-function InfoTooltip({ isOpen, onClose, isSuccess }) {
+function InfoTooltip({ isOpen, onClose, isSuccess, errorMessage }) {
   // проверяет нажатие esc
   if (isOpen) {
     window.addEventListener('keydown', (evt) => handleEscClose(evt))
@@ -50,7 +50,7 @@ function InfoTooltip({ isOpen, onClose, isSuccess }) {
                 className="popup__infotool-img"
               />
               <p className="popup__infotool-text">
-                Что-то пошло не так. Попробуйте ещё раз!
+                {errorMessage || 'Что-то пошло не так. Попробуйте ещё раз!'}
               </p>
             </>
           )}
