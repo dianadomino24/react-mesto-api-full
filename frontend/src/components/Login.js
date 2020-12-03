@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import RegisterLoginTemplate from './RegisterLoginTemplate';
 import useFormWithValidation from '../hooks/useForm';
 
-const Login = ({ onLogin, loggedIn }) => {
+const Login = ({ onLogin }) => {
     const {
     values,
     handleChange,
@@ -24,12 +24,6 @@ const Login = ({ onLogin, loggedIn }) => {
     onLogin(email, password)
     resetForm()
   }
-
-  React.useEffect(() => {
-    if (loggedIn) {
-      setData({ email: '', password: '' })
-    }
-  }, [loggedIn])
 
   return (
     <div className="login">

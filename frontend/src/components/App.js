@@ -355,7 +355,6 @@ function App() {
             <Route path="/sign-in">
               <Login
                 onLogin={handleLogin}
-                loggedIn={loggedIn}
               />
             </Route>
 
