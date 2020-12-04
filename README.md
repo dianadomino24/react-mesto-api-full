@@ -2,7 +2,7 @@
 
 A single-page application that simulates a user's page with a gallery. Frontend and backend, full MERN functionality.
 
-** :small_blue_diamond: App functions :small_blue_diamond: **
+:small_blue_diamond: **App functions:** :small_blue_diamond:
   - registration
   - logging in
   - editing a profile info and avatar
@@ -11,8 +11,8 @@ A single-page application that simulates a user's page with a gallery. Frontend 
   - putting likes.
 
 ---
-## :mag_right: Preview :mag_right:
-![Preview](./Example.png)
+## :mag_right: Preview
+
 ![Preview](./Example3.png)
 ![Preview](./Example2.png)
 ![Preview](./Example4.png)
@@ -55,8 +55,17 @@ A single-page application that simulates a user's page with a gallery. Frontend 
 
 
 * **ESLint airbnb-base**,
-* **Figma**, **Pixel perfect**.
+* **Figma**, **Pixel perfect**,
+
+
+* **Git** versions, branches.
 
 ---
 
 **Practicum by Yandex** - https://practicum.yandex.com/
+
+---
+
+## :sparkles: Thanks for watching! :sparkles:
+
+![Preview](./Example.png)
