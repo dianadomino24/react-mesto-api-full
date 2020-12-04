@@ -69,10 +69,10 @@ const Register = ({ onRegister }) => {
           type="submit"
           disabled={!isValid}
         >
-          Зарегистрироваться
+          Sign up
         </button>
         <Link to="/sign-in" className="link popup__login-link">
-          Уже зарегистрированны? Войти
+          Already signed up? Then enter.
         </Link>
       </RegisterLoginTemplate>
     </div>

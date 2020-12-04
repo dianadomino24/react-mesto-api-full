@@ -38,12 +38,12 @@ app.use((req, res, next) => {
 app.options('*', cors());
 
 app.use(requestLogger);
-// !!!!!!!!!!!!!!!!!!!!!убрать после успешного ревью!!!!!!!!!!!!!!!!!!!!!!!!!
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+// !!!!!!!убрать после успешного ревью!!!!!
+// app.get('/crash-test', () => {
+//   setTimeout(() => {
+//     throw new Error('Сервер сейчас упадёт');
+//   }, 0);
+// });
 
 app.use('/', routerIndex);
 app.use(errorLogger);
@@ -52,13 +52,13 @@ app.use(errorLogger);
 app.use(errors());
 
 app.use(() => {
-  throw new NotFoundError('Запрашиваемый ресурс не найден');
+  throw new NotFoundError('The requested resource is not found');
 });
 
 // здесь обрабатываем все ошибки
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  res.status(err.status || 500).send({ message: err.message || 'На сервере произошла ошибка' });
+  res.status(err.status || 500).send({ message: err.message || 'Sorry, some error on server.' });
 });
 
 app.listen(PORT, () => {

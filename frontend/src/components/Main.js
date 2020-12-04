@@ -38,7 +38,7 @@ function Main({
       </section>
       <section className="places section">
         <ul className="places__list">
-          <li className="places__empty-list">Нет добавленных мест</li>
+          <li className="places__empty-list">No places added</li>
           {cards.map((card) => (
             <Card
               key={card._id}

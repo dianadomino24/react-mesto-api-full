@@ -7,7 +7,7 @@ const getCards = (req, res, next) => {
   Card.find({})
     .then((cards) => {
       if (!cards) {
-        throw new NotFoundError('Карточки не найдены getCards');
+        throw new NotFoundError('Cards are not found');
       }
       return res.status(200).send(cards);
     })
@@ -21,7 +21,7 @@ const createCard = (req, res, next) => {
     .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        throw new BadRequestError('Ошибка валидации при создании карточки');
+        throw new BadRequestError('Validation error while creating card');
       }
       return next(err);
     })
@@ -30,11 +30,11 @@ const createCard = (req, res, next) => {
 
 const deleteCard = (req, res, next) => {
   Card.findById(req.params.cardId)
-    .orFail(new NotFoundError('Карточка не найдена'))
+    .orFail(new NotFoundError('The card has not been found'))
     .then((card) => {
       // запрет удалять чужие карточки
       if (card.owner.toString() !== req.user._id.toString()) {
-        throw new ForbiddenError('У Вас нет прав для удаления чужой карточки');
+        throw new ForbiddenError('You can\'t delete other people\'s cards');
       }
 
       Card.findByIdAndRemove(req.params.cardId)
@@ -49,7 +49,7 @@ const putLike = (req, res, next) => {
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
     { new: true },
   )
-    .orFail(new NotFoundError('Карточка не найдена в БД'))
+    .orFail(new NotFoundError('The card has not been found'))
     .then((card) => {
       res.status(200).send(card);
     })
@@ -62,7 +62,7 @@ const deleteLike = (req, res, next) => {
     { $pull: { likes: req.user._id } }, // убрать _id из массива
     { new: true },
   )
-    .orFail(new NotFoundError('Карточка не найдена в БД'))
+    .orFail(new NotFoundError('The card has not been found'))
     .then((card) => {
       res.status(200).send(card);
     })

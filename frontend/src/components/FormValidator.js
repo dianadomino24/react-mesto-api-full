@@ -72,13 +72,13 @@ export class FormValidator {
     switch (this._isInputWithoutSpacingInvalid(inputElement)) {
       // если поле пусто, не считая пробелы
       case INVALID_EMPTY:
-        errorElement.textContent = 'Заполните это поле.'
+        errorElement.textContent = 'Fill in this field.'
         errorElement.classList.add(this._errorActiveClass)
         break
       // если выбросить пробелы и в поле 1 символ
       case INVALID_TOOSHORT:
         errorElement.textContent =
-          'Текст должен быть не короче 2 симв. Длина текста сейчас: 1 символ.'
+          'The text must be at least 2 symbols.'
         errorElement.classList.add(this._errorActiveClass)
         break
       // если без пробелов в поле 2 символа, то проверим их валидность

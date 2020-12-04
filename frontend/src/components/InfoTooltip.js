@@ -35,22 +35,22 @@ function InfoTooltip({ isOpen, onClose, isSuccess, errorMessage }) {
             <>
               <img
                 src={success}
-                alt="Галочка"
+                alt="Success"
                 className="popup__infotool-img"
               />
               <p className="popup__infotool-text">
-                Вы успешно зарегистрировались!
+                Success!
               </p>
             </>
           ) : (
             <>
               <img
                 src={fail}
-                alt="Красный крестик"
+                alt="Red cross"
                 className="popup__infotool-img"
               />
               <p className="popup__infotool-text">
-                {errorMessage || 'Что-то пошло не так. Попробуйте ещё раз!'}
+                {errorMessage || 'Something went wrong, please, try again!'}
               </p>
             </>
           )}

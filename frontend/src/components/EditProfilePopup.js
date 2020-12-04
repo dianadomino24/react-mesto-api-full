@@ -24,7 +24,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   }
 
   function handleClose() {
-    // если изменены инпуты, но не засабмичены, то не станет сохранять их values ????????????????????????
     setName(currentUser.name)
     setDescription(currentUser.about)
 
@@ -46,7 +45,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     <PopupWithForm
       title="Редактировать профиль"
       name="edit-profile"
-      buttonText="Сохранить"
+      buttonText="Save"
       isOpen={isOpen}
       onClose={handleClose}
       onSubmit={handleSubmit}
@@ -57,7 +56,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           value={name}
           onChange={handleNameChange}
           name="profile-name"
-          placeholder="Имя"
+          placeholder="Name"
           id="profile-name"
           className="input popup__input popup__input_type_name"
           required
@@ -73,7 +72,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           onChange={handleDescribChange}
           name="profile-job"
           id="profile-job"
-          placeholder="Род деятельности"
+          placeholder="Job"
           className="input popup__input popup__input_type_job"
           required
           minLength="2"

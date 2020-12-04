@@ -19,7 +19,7 @@ export default function Card({
     onCardLike(card)
   }
   function handleDelete(evt) {
-    //сохраняет дом элемент, который надо будет удалить из разметки
+    //saves DOM element to remove it on delete
     const placeEvt = evt.target.closest('.places__item')
     onCardDelete(card, placeEvt)
   }

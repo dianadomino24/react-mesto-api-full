@@ -10,25 +10,25 @@ function Header({ onSignOut, userEmail }) {
         <img
           className="logo__image"
           src={logoPath}
-          alt="Логотип проекта Mesto"
+          alt="Logo of project Mesto"
         />
       </a>
       <Switch>
         <Route path="/sign-up">
           <Link to="./sign-in" className="link header__link">
-            Вход
+            Sign in
           </Link>
         </Route>
         <Route path="/sign-in">
           <Link to="./sign-up" className="link header__link">
-            Регистрация
+            Sign up
           </Link>
         </Route>
         <Route path="/">
           <div className="header__user-info">
             <p className="header__email">{email}</p>
             <button onClick={onSignOut} className="header__button">
-              Выйти
+              Quit
             </button>
           </div>
         </Route>
