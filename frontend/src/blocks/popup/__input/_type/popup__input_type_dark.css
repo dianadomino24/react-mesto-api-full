@@ -1,7 +1,6 @@
 .popup__input_type_dark {
   background-color: #000000;
   border-bottom: 2px solid #cccccc;
-  margin-bottom: 33px;
   color: #fff;
 }
 .popup__input_type_dark:-webkit-autofill,

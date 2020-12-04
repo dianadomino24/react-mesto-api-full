@@ -8,6 +8,7 @@ const Login = ({ onLogin }) => {
     handleChange,
     errors,
     resetForm,
+    isValid
   } = useFormWithValidation();
 
   const handleFormChange = (e) => {
@@ -62,6 +63,7 @@ const Login = ({ onLogin }) => {
           className="link popup__save-button popup__save-button_type_dark"
           autoFocus
           type="submit"
+          disabled={!isValid}
         >
           Войти
         </button>

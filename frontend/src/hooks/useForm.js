@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react';
 export default function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (evt) => {
     const target = evt.target;
@@ -10,6 +11,7 @@ export default function useFormWithValidation() {
     const value = target.value;
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: target.validationMessage });
+    setIsValid(evt.target.closest('form').checkValidity());
   };
 
   const resetForm = useCallback(() => {
@@ -17,5 +19,5 @@ export default function useFormWithValidation() {
     setErrors({});
   }, []);
 
-  return { values, setValues, handleChange, errors, resetForm };
+  return { values, setValues, handleChange, errors, resetForm, isValid };
 }

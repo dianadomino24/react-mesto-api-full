@@ -9,6 +9,7 @@ const Register = ({ onRegister }) => {
     handleChange,
     errors,
     resetForm,
+    isValid
   } = useFormWithValidation();
 
   const handleFormChange = (e) => {
@@ -66,6 +67,7 @@ const Register = ({ onRegister }) => {
           className="link popup__save-button popup__save-button_type_dark"
           autoFocus
           type="submit"
+          disabled={!isValid}
         >
           Зарегистрироваться
         </button>
