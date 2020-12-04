@@ -1,10 +1,9 @@
 import { BASE_URL } from './utils'
 
 const getResponseData = (res) => {
-  return res.json()
-  .then(json => {
-      return res.ok ? json : Promise.reject(json);
-    });
+  return res.json().then((json) => {
+    return res.ok ? json : Promise.reject(json)
+  })
 }
 
 export const register = (email, password) =>

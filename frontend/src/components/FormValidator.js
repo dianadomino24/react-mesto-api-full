@@ -77,8 +77,7 @@ export class FormValidator {
         break
       // если выбросить пробелы и в поле 1 символ
       case INVALID_TOOSHORT:
-        errorElement.textContent =
-          'The text must be at least 2 symbols.'
+        errorElement.textContent = 'The text must be at least 2 symbols.'
         errorElement.classList.add(this._errorActiveClass)
         break
       // если без пробелов в поле 2 символа, то проверим их валидность

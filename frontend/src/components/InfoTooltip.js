@@ -38,17 +38,11 @@ function InfoTooltip({ isOpen, onClose, isSuccess, errorMessage }) {
                 alt="Success"
                 className="popup__infotool-img"
               />
-              <p className="popup__infotool-text">
-                Success!
-              </p>
+              <p className="popup__infotool-text">Success!</p>
             </>
           ) : (
             <>
-              <img
-                src={fail}
-                alt="Red cross"
-                className="popup__infotool-img"
-              />
+              <img src={fail} alt="Red cross" className="popup__infotool-img" />
               <p className="popup__infotool-text">
                 {errorMessage || 'Something went wrong, please, try again!'}
               </p>

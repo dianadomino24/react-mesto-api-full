@@ -1,23 +1,23 @@
-import React, {useEffect} from 'react'
-import RegisterLoginTemplate from './RegisterLoginTemplate';
-import useFormWithValidation from '../hooks/useForm';
+import React, { useEffect } from 'react'
+import RegisterLoginTemplate from './RegisterLoginTemplate'
+import useFormWithValidation from '../hooks/useForm'
 
 const Login = ({ onLogin }) => {
-    const {
+  const {
     values,
     handleChange,
     errors,
     resetForm,
-    isValid
-  } = useFormWithValidation();
+    isValid,
+  } = useFormWithValidation()
 
   const handleFormChange = (e) => {
-    handleChange(e);
+    handleChange(e)
   }
 
-      useEffect(() => {
-    resetForm();
-  }, [resetForm]);
+  useEffect(() => {
+    resetForm()
+  }, [resetForm])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -42,7 +42,9 @@ const Login = ({ onLogin }) => {
             minLength="2"
             maxLength="80"
           />
-          <span className="popup__input-error popup__input-error_active">{errors.email}</span>
+          <span className="popup__input-error popup__input-error_active">
+            {errors.email}
+          </span>
         </label>
         <label className="popup__label">
           <input
@@ -57,7 +59,9 @@ const Login = ({ onLogin }) => {
             minLength="6"
             maxLength="15"
           />
-          <span className="popup__input-error popup__input-error_active">{errors.password}</span>
+          <span className="popup__input-error popup__input-error_active">
+            {errors.password}
+          </span>
         </label>
         <button
           className="link popup__save-button popup__save-button_type_dark"

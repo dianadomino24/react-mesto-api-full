@@ -1,23 +1,23 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import RegisterLoginTemplate from './RegisterLoginTemplate'
-import useFormWithValidation from '../hooks/useForm';
+import useFormWithValidation from '../hooks/useForm'
 
 const Register = ({ onRegister }) => {
-    const {
+  const {
     values,
     handleChange,
     errors,
     resetForm,
-    isValid
-  } = useFormWithValidation();
+    isValid,
+  } = useFormWithValidation()
 
   const handleFormChange = (e) => {
-    handleChange(e);
+    handleChange(e)
   }
-    useEffect(() => {
-    resetForm();
-  }, [resetForm]);
+  useEffect(() => {
+    resetForm()
+  }, [resetForm])
 
   const handleSubmit = (e) => {
     e.preventDefault()

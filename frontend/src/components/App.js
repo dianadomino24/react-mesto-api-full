@@ -19,7 +19,6 @@ import * as auth from '../utils/auth.js'
 import { getToken, removeToken } from '../utils/token'
 import { setToken } from '../utils/token'
 
-
 function App() {
   //popups states
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -67,7 +66,7 @@ function App() {
     setSelectedCard(card)
     setIsImgPopupOpen(true)
   }
-е
+  е
   function closeAllPopups() {
     //убирает уведомления об ошибках от предыдущих инпутов
     cleanInputErrors()
@@ -344,9 +343,7 @@ function App() {
               <Register onRegister={handleRegister} />
             </Route>
             <Route path="/sign-in">
-              <Login
-                onLogin={handleLogin}
-              />
+              <Login onLogin={handleLogin} />
             </Route>
 
             <ProtectedRoute
