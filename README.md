@@ -1,6 +1,8 @@
 # :large_blue_diamond: Study project at Practicum by Yandex :large_blue_diamond:
 
-A single-page application that simulates a user's page with a gallery. Frontend and backend, full MERN functionality.
+A single-page application that simulates a user's page with a gallery. 
+
+Frontend and backend, full MERN functionality.
 
 :small_blue_diamond: **App functions:** :small_blue_diamond:
   - registration
