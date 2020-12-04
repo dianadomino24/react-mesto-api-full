@@ -28,7 +28,7 @@ const Register = ({ onRegister }) => {
 
   return (
     <div className="register">
-      <RegisterLoginTemplate title="Регистрация" onSubmit={handleSubmit}>
+      <RegisterLoginTemplate title="Sign up" onSubmit={handleSubmit}>
         <label className="popup__label">
           <input
             type="email"

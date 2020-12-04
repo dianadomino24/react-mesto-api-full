@@ -66,7 +66,7 @@ function App() {
     setSelectedCard(card)
     setIsImgPopupOpen(true)
   }
-  е
+
   function closeAllPopups() {
     //убирает уведомления об ошибках от предыдущих инпутов
     cleanInputErrors()

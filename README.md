@@ -1,86 +1,55 @@
-# Проекты 4-15: Место
+# :large_blue_diamond: Study project at Practicum by Yandex :large_blue_diamond:
 
-Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. 
+A single-page application that simulates a user's page with a gallery. Frontend and backend, full MERN functionality.
 
-## Где найти проект
-- Адрес проекта: https://dianadomino24.students.nomoreparties.space
+App functions:
+  - registration
+  - logging in
+  - editing a profile info and avatar
+  - adding images to the gallery via url-links
+  - deleteing images
+  - putting likes.
 
-- Доменное имя backend сервера: http://api.dianadomino24.students.nomoreparties.space
+![Preview](./Example.png)
+![Preview](./Example2.png)
+![Preview](./Example4.png)
 
-- Публичный IP-адрес сервера : 178.154.233.146
+---
+## :link: Links to test 
 
-<!-- ## Запуск проекта
+- Project link: https://dianadomino24.students.nomoreparties.space
 
-`npm run start` — запускает сервер  
-`npm run dev` — запускает сервер с hot-reload -->
+- Backend domain name: http://api.dianadomino24.students.nomoreparties.space
 
+- Public IP: 178.154.233.146
 
-**Общее**
+---
+## :rocket: Technologies 
 
-В проекте реализован одностраничный сайт с попапами и адаптивными
-карточками для размещения фотографий с подписями. Реализована авторизация
-и регистрация пользователей. Заполнение формы
-в попапе изменяет информацию на основной странице. Можно сменить аватар профиля.
-Карточки можно добавить, удалить и поставить им лайк. Данные отправляются на сервер,
-другие пользователи также могут поставить лайк.
-При нажатии на изображение всплывает попап с увеличенной картинкой и ее подписью.
-Реализована валидация форм. Попап можно закрыть при клике на overlay или Esc.
+* **JavaScript ES6** - object-oriented programming, functional programming, fetch API,
 
-Использовались css, html, javascript, jsx, react, node, Nginx, express, webpack, babel, postman, mongoose, joi, celebrate, winston.
+* semantic **HTML5**, styles - **CSS3** including Flexbox, Grid, adaptive layout,
+* **jsx**,
+* **BEM** methodology,
 
-Выполнен рефакторинг на React.
-Использованы реакт-хуки.
-Настроена сборка проекта с помощью Webpack.
-Настроено взаимодействие с сервером (отправка и получение данных).
+**React.js** - functional and class components, Context, Ref, Redirect, Route, Switch functions, 
+* **React hooks** - useState, useEffect, useContext, useRef, useCallback, useHistory,
+* **Create React App** build,
 
-**Figma**
+* **Node.js**, **Express.js** - API based on **REST** principles for working with the database, authentication/authorization,
+* **MongoDb**, **Mongoose** - schema, CRUD operations,
+* Yandex.Cloud service **Virtual Machine**,
 
--   [Ссылка на макет в Figma 4](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+* Client-side and user-side validation of data including  **validator** and **joi/celebrate** modules, jwt-token,
+* **BodyParser**, **DotENV**, **bCrypt**, **Nodemon**,
+* Access and error logs are maintained using the **winston** module,
+* **Centralized error handling** with sending correct statuses and error messages to requests,
+* Working with files/API requests is divided between the Node and **Nginx** servers.
 
--   [Ссылка на макет в Figma 5](https://www.figma.com/file/nlYpT4VhFiwimn2YlncrcF/JavaScript.-Sprint-5?node-id=0%3A1)
+* **ESLint airbnb-base**.
 
--   [Ссылка на макет в Figma 6](https://www.figma.com/file/XNaGNEZD5NEjeyJzAT4gMb/JavaScript.-Sprint-6?node-id=0%3A1)
+* **Figma**, **Pixel perfect**
 
--   [Ссылка на макет в Figma 9](https://www.figma.com/file/hhhIavVTeuilfPPZ6sbifl/JavaScript.-Sprint-9?node-id=0%3A1)
+---
 
--   [Ссылка на макет в Figma 14](<https://www.figma.com/file/fUESH7icdnexdbpwgYsUcc/Sprint-14-(RU)?node-id=0%3A1>)
-
-**Ссылка на GitPages**
-
-[Ссылка на сайт в GitPages](https://dianadomino24.github.io/mesto/index.html)
-
-**Технологии**
-
-Освоены:
-
--   рефакторинг кода с использованием React,
-    реакт-хуки (useEffect, useState,
-    useRef, createContext),
-    конвертация html в jsx,
--   настройка взаимодействия с сервером (GET, PUT, DELETE, PATCH, POST методы),
--   использование асинхронных ф-ций и промисов,
--   рефакторинг кода с использованием классов из ООП,
-    деструктуризация и слабое связывание классов,
--   сборка проекта с помощью Webpack(минификация, транспиляция, автопрефиксер),
--   методы валидации форм, вывод стандартных браузерных текстов ошибок в кастомных стилях,
-    измерение состояния кнопки submit в зависимости от валидности формы,
--   методы работы с формами в javascript, изменение классов,
-    условные конструкции, метод addEventListener,
--   методы добавления разметки через template.content.cloneNode,
--   использование модулей
--   применение свойств target у event,
--   метод forEach,
--   отзывчивая (responsive), адаптивная (adaptive) и
-    резиновая (liquid/fluid) верстки,
--   flex- и grid- верстка,
--   Nested файловая структура по БЭМ.
-
-**В перспективе**
-
-В перспективе необходимо доработать сайт:
-
--   реализовать проверку валидности, используя регулярные выражения
--   реализовать редактирование текущих карточек
--   перетаскивание карточек мышью
--   копирование карточек.
-
+**Practicum by Yandex** - https://practicum.yandex.com/
