@@ -28,7 +28,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login">
-      <RegisterLoginTemplate title="Вход" onSubmit={handleSubmit}>
+      <RegisterLoginTemplate title="Sign in" onSubmit={handleSubmit}>
         <label className="popup__label">
           <input
             type="email"
@@ -51,7 +51,7 @@ const Login = ({ onLogin }) => {
             onChange={handleFormChange}
             name="password"
             id="password"
-            placeholder="Пароль"
+            placeholder="Password"
             className="input popup__input popup__input_type_dark"
             required
             minLength="6"
@@ -65,7 +65,7 @@ const Login = ({ onLogin }) => {
           type="submit"
           disabled={!isValid}
         >
-          Войти
+          Enter
         </button>
       </RegisterLoginTemplate>
     </div>

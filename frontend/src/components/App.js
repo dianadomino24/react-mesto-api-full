@@ -19,11 +19,9 @@ import * as auth from '../utils/auth.js'
 import { getToken, removeToken } from '../utils/token'
 import { setToken } from '../utils/token'
 
-const TOKEN_KEY = 'jwt'
-
 
 function App() {
-  //состояние попапов
+  //popups states
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
@@ -34,26 +32,26 @@ function App() {
   const [cards, setCards] = useState([])
 
   const profileAvatarSelector = '.profile__image'
-  // Данные текущего пользователя будут использованы как контекст (пока не пришли даннные с сервера покажет Жака)
+  // Current user data (will show Jacques-Yves Cousteau before getting data from remote server)
   const [currentUser, setCurrentUser] = useState({
-    name: 'Жак Ив Кусто',
-    about: 'Мореплаватель',
+    name: 'Jacques-Yves Cousteau',
+    about: 'Navigator',
     avatar:
       'https://kaskad.tv/images/2020/foto_zhak_iv_kusto__-_interesnie_fakti_20190810_2078596433.jpg',
   })
-  // для попапа с полноразмерной картинкой
+  // used for full-size picture popup
   const [selectedCard, setSelectedCard] = useState()
-  // для удаления карточки
+  // used for card deleteing
   const [selectedCardDOM, setSelectedCardDOM] = useState()
 
   const [userEmail, setUserEmail] = useState({ email: '' })
   const [loggedIn, setLoggedIn] = useState(false)
   const history = useHistory()
   const [errorMessage, setErrorMessage] = useState('')
-  // для показа (не)успешной регистрации
+  // for showing registration/login success state
   const [registerSuccess, setRegisterSuccess] = useState(false)
 
-  // открывают попапы
+  // open popups
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
   }
@@ -69,8 +67,7 @@ function App() {
     setSelectedCard(card)
     setIsImgPopupOpen(true)
   }
-
-  // закрывает все попапы меняя их состояние
+е
   function closeAllPopups() {
     //убирает уведомления об ошибках от предыдущих инпутов
     cleanInputErrors()
@@ -83,15 +80,14 @@ function App() {
     setInfoTooltipOpen(false)
   }
 
-  // при монтировании компонента будет совершать запрос в API за пользовательскими данными и карточками
+  // on mounting will fetch api data on user and cards
   useEffect(() => {
     Promise.all([api.getItems('/users/me'), api.getItems('/cards')])
       .then((values) => {
         const [userData, serverCards] = values
-        // отображает данные пользователья в профиле
+
         setCurrentUser(userData)
 
-        // отобразит карточки с сервера
         const items = serverCards.map((item) => ({
           name: item.name,
           link: item.link,
@@ -102,16 +98,16 @@ function App() {
         setCards(items)
       })
       .catch((err) => {
-        console.log(`Загрузка информации о пользователе и карточках: ${err}`)
+        console.log(`When loading user and cards data: ${err}`)
       })
   }, [loggedIn])
 
-  // варианты замены текста кнопок при ожидании загрузки
-  const loadingText = 'Сохранение...'
-  const defaultSaveText = 'Сохранить'
-  const defaultCreateText = 'Создать'
-  const defaultYesText = 'Да'
-  // заменит текст кнопок при ожидании процесса загрузки данных на сервер
+  // options for button text to show when data is being sent to server
+  const loadingText = 'Saving...'
+  const defaultSaveText = 'Save'
+  const defaultCreateText = 'Create'
+  const defaultYesText = 'Yes'
+  // replaces button text when loading data to server
   function renderLoading(isLoading, button, text) {
     if (isLoading) {
       button.textContent = loadingText
@@ -120,20 +116,19 @@ function App() {
     }
   }
   function handleCardLike(card) {
-    // проверяем, есть ли уже лайк на этой карточке
+    // checks if like has already been put
     const isLiked = card.likes.some((id) => id === currentUser._id)
 
-    // Отправляем запрос в API и получаем обновлённые данные карточки
+    // fetch new data about card state
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+        // form a new array of cards with liked one
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c))
-        // Обновляем стейт
         setCards(newCards)
       })
       .catch((err) => {
-        console.log(`Изменения статуса лайка: ${err}`)
+        console.log(`On card like: ${err}`)
       })
   }
 
@@ -141,36 +136,36 @@ function App() {
     const cardDeleteSubmitButton = document.querySelector(
       '.popup__save-button_type_card-delete'
     )
-    // ожидание загрузки
+    // show loading process
     renderLoading(true, cardDeleteSubmitButton, defaultYesText)
     api
       .deleteItem('/cards', card._id)
       .then(() => {
-        //вызывает удаление карточки из разметки
+        // deletes card from DOM
         cardDOMElement.remove()
       })
       .then(() => {
         closeAllPopups()
       })
       .catch((err) => {
-        console.log(`При удалении карточки: ${err}`)
+        console.log(`On card delete: ${err}`)
       })
       .finally(() =>
         renderLoading(false, cardDeleteSubmitButton, defaultYesText)
       )
   }
-  // удаляет карточку
+
   function handleCardDelete(card, cardDOMElement) {
     setIsCardDeletePopupOpen(true)
     setSelectedCard(card)
     setSelectedCardDOM(cardDOMElement)
   }
-  // обновляет профиль
+
   function handleUpdateUser(userData) {
     const profileSubmitButton = document.querySelector(
       '.popup__save-button_type_edit-profile'
     )
-    // ожидание загрузки
+
     renderLoading(true, profileSubmitButton, defaultSaveText)
 
     api
@@ -182,14 +177,13 @@ function App() {
         '/users/me'
       )
       .then((res) => {
-        //установим новые данные профиля в разметке
         setCurrentUser(res)
       })
       .then(() => {
         closeAllPopups()
       })
       .catch((err) => {
-        console.log(`При обновлении информации о пользователе: ${err}`)
+        console.log(`On user data update: ${err}`)
       })
       .finally(() => {
         renderLoading(false, profileSubmitButton, defaultSaveText)
@@ -200,7 +194,6 @@ function App() {
     const avatarSubmitButton = document.querySelector(
       '.popup__save-button_type_edit-avatar'
     )
-    // до получения ответа от сервера покажет пользователю надпись о процессе загрузки
     renderLoading(true, avatarSubmitButton, defaultSaveText)
 
     api
@@ -217,23 +210,21 @@ function App() {
         closeAllPopups()
       })
       .catch((err) => {
-        console.log(`При изменении аватара пользователя: ${err}`)
+        console.log(`On avatar change: ${err}`)
       })
       .finally(() => {
         renderLoading(false, avatarSubmitButton, defaultSaveText)
       })
   }
-  // добавит новую карточку места
+  // adds new card
   function handleAddPlaceSubmit(newCard) {
     const placeSubmitButton = document.querySelector(
       '.popup__save-button_type_add-place'
     )
-    // до получения ответа от сервера покажет пользователю надпись о процессе загрузки
     renderLoading(true, placeSubmitButton, defaultCreateText)
 
     api
       .createItem(newCard, '/cards')
-      // создаст ее в разметке
       .then((newCard) => {
         setCards([newCard, ...cards])
       })
@@ -241,7 +232,7 @@ function App() {
         closeAllPopups()
       })
       .catch((err) => {
-        console.log(`Добавление карточки: ${err}`)
+        console.log(`On card add: ${err}`)
       })
       .finally(() => {
         renderLoading(false, placeSubmitButton, defaultCreateText)
@@ -263,7 +254,7 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         if (!data) {
-          setErrorMessage('Что-то пошло не так при авторизации.')
+          setErrorMessage('Something went wrong on authorization')
           return false
         }
         if (data.token) {
@@ -277,14 +268,14 @@ function App() {
         }
       })
       .catch((err) => {
-        setErrorMessage(`Ошибка: ${err.message}`)
+        setErrorMessage(`Error: ${err.message}`)
         handleRegisterFail()
         infoTooltipOpen()
         if (err.status === 401) {
-          return console.log(`Пользователь с email не найден : ${err}`)
+          return console.log(`User with this email is not found : ${err}`)
         }
         if (err.status === 400) {
-          return console.log(`Не передано одно из полей : ${err}`)
+          return console.log(`One of the inputs is not filled in : ${err}`)
         }
         console.log(`App authorize Error: ${err}`)
       })
@@ -308,7 +299,7 @@ function App() {
         }
       })
       .catch((err) => {
-        setErrorMessage(`Ошибка: ${err.message}`)
+        setErrorMessage(`Error: ${err.message}`)
         handleRegisterFail()
         infoTooltipOpen()
         console.log(`App onRegister: ${err.message}`)
@@ -338,7 +329,7 @@ function App() {
         console.log(`getContent: ${err}`)
       })
   }
-  // при монтировании компонента и переключениях рута будет проверять токен
+  // will check token on element mounting and route changing
   useEffect(() => {
     tokenCheck()
   }, [loggedIn, history])
@@ -398,11 +389,11 @@ function App() {
           />
 
           <PopupWithSubmit
-            title="Вы уверены?"
+            title="Are you sure?"
             name="card-delete"
             card={selectedCard}
             cardDOM={selectedCardDOM}
-            buttonText="Да"
+            buttonText="Yes"
             isOpen={isCardDeletePopupOpen}
             onClose={closeAllPopups}
             onCardDeleteSubmit={handleCardDeleteSubmit}
