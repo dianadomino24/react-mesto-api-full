@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+// eslint-disable-next-line no-unused-vars
+const dotenv = require('dotenv').config();
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { routerIndex } = require('./routes/index');
