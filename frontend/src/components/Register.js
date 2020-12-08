@@ -53,7 +53,7 @@ const Register = ({ onRegister }) => {
             onChange={handleFormChange}
             name="password"
             id="password"
-            placeholder="Пароль"
+            placeholder="Password"
             className="input popup__input popup__input_type_dark"
             required
             minLength="6"
