@@ -34,7 +34,6 @@ const getMe = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  console.log(req.body)
   const {
     email, password, name, about, avatar,
   } = req.body;
@@ -45,8 +44,7 @@ const createUser = (req, res, next) => {
         throw new ConflictError('This user already exists');
       }
       console.log(SALT_ROUND)
-      console.log(password)
-      return bcrypt.hash(password, 10);
+      return bcrypt.hash(password, SALT_ROUND);
     })
     .then((hash) => User.create({
       email,
@@ -56,7 +54,11 @@ const createUser = (req, res, next) => {
       avatar,
     }))
     // eslint-disable-next-line no-shadow
-    .then((data) => res.status(200).send(data))
+    .then(({ email, _id }) => res.status(200).send({email, _id})
+    // .then((info) => {
+    //   const {email, _id} = info;
+    //   res.status(200).send({email, _id})
+    // })
     .catch(next);
 };
 
