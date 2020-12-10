@@ -44,7 +44,7 @@ const createUser = (req, res, next) => {
         throw new ConflictError('This user already exists');
       }
       console.log(SALT_ROUND)
-      return bcrypt.hash(password, SALT_ROUND);
+      return bcrypt.hash(password, 10);
     })
     .then((hash) => User.create({
       email,
