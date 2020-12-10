@@ -43,15 +43,18 @@ const createUser = (req, res, next) => {
       if (user) {
         throw new ConflictError('This user already exists');
       }
+      console.log(SALT_ROUND)
       return bcrypt.hash(password, SALT_ROUND);
     })
-    .then((hash) => User.create({
+    .then((hash) =>
+    { console.log(hash)
+      User.create({
       email,
       password: hash,
       name,
       about,
       avatar,
-    }))
+    })})
     // eslint-disable-next-line no-shadow
     .then(({ email, _id }) => res.status(200).send({ email, _id }))
     .catch(next);
