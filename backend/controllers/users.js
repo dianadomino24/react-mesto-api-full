@@ -48,18 +48,15 @@ const createUser = (req, res, next) => {
       console.log(password)
       return bcrypt.hash(password, 10);
     })
-    .then((hash) => {
-      console.log(hash)
-      console.log(email)
-      User.create({
+    .then((hash) => User.create({
       email,
       password: hash,
       name,
       about,
       avatar,
-    })})
+    }))
     // eslint-disable-next-line no-shadow
-    .then((data) => res.status(200).send({ data }))
+    .then((data) => res.status(200).send(data))
     .catch(next);
 };
 
