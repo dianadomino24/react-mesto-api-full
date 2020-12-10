@@ -15,9 +15,9 @@ const Register = ({ onRegister }) => {
   const handleFormChange = (e) => {
     handleChange(e)
   }
-  useEffect(() => {
-    resetForm()
-  }, [resetForm])
+  // useEffect(() => {
+  //   resetForm()
+  // }, [resetForm])
 
   const handleSubmit = (e) => {
     e.preventDefault()
