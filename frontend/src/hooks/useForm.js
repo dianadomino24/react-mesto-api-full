@@ -9,7 +9,7 @@ export default function useFormWithValidation() {
     const target = evt.target
     const name = target.name
     if (name == 'password') {
-      const value = target.value.replace(/\s+/g,'')
+      const value = target.value.trim().replace(/\s+/g,'')
       setValues({ ...values, [name]: value })
     setErrors({ ...errors, [name]: target.validationMessage })
     } else {

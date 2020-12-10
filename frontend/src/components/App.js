@@ -245,10 +245,19 @@ function App() {
   function onSignOut() {
     removeToken()
     setLoggedIn(false)
+    setNewUser((prevUser) => ({ ...prevUser, password: '' }));
     history.push('/sign-in')
   }
 
-  function handleLogin(email, password) {
+  const [newUser, setNewUser] = useState({ password: '', email: '' });
+  const setUser = (evt) => {
+    const target = evt.target;
+    const name = target.name;
+    const value = target.value;
+    setNewUser((prevUser) => ({ ...prevUser, [name]: value }));
+  };
+
+  function handleLogin(email, password, resetForm) {
     auth
       .authorize(email, password)
       .then((data) => {
@@ -259,7 +268,8 @@ function App() {
         if (data.token) {
           setToken(data.token)
           setErrorMessage('')
-
+          resetForm()
+          setNewUser({ password: '', email: '' });
           setUserEmail({ email: email })
           setLoggedIn(true)
           history.push('/')
@@ -276,7 +286,7 @@ function App() {
         if (err.status === 400) {
           return console.log(`One of the inputs is not filled in : ${err}`)
         }
-        console.log(`App authorize Error: ${err}`)
+        console.log(`App authorize Error: ${err.message}`)
       })
   }
   function handleRegisterSuccess() {
@@ -286,14 +296,16 @@ function App() {
     setRegisterSuccess(false)
   }
 
-  function handleRegister(email, password) {
+  function handleRegister(email, password, resetForm) {
     auth
       .register(email, password)
       .then((res) => {
         if (res) {
           setErrorMessage('')
+          resetForm()
           handleRegisterSuccess()
           infoTooltipOpen()
+          setNewUser({ password: '', email: res.email });
           history.push('/sign-in')
         }
       })
@@ -340,10 +352,10 @@ function App() {
           <Header onSignOut={onSignOut} userEmail={userEmail} />
           <Switch>
             <Route path="/sign-up">
-              <Register onRegister={handleRegister} />
+              <Register onRegister={handleRegister} onChange={setUser}/>
             </Route>
             <Route path="/sign-in">
-              <Login onLogin={handleLogin} />
+              <Login onLogin={handleLogin} onChange={setUser} />
             </Route>
 
             <ProtectedRoute
