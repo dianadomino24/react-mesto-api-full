@@ -8,12 +8,18 @@ export default function useFormWithValidation() {
   const handleChange = (evt) => {
     const target = evt.target
     const name = target.name
+    if (name == 'password') {
+      const value = target.value.replace(/\s/g,'')
+      setValues({ ...values, [name]: value })
+    setErrors({ ...errors, [name]: target.validationMessage })
+    setIsValid(evt.target.closest('form').checkValidity())
+    } else {
     const value = target.value
     setValues({ ...values, [name]: value })
     setErrors({ ...errors, [name]: target.validationMessage })
     setIsValid(evt.target.closest('form').checkValidity())
   }
-
+}
   const resetForm = useCallback(() => {
     setValues({})
     setErrors({})
