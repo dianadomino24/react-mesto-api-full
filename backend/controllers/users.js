@@ -50,7 +50,7 @@ const createUser = (req, res, next) => {
     })
     .then((hash) => {
       console.log(hash)
-
+      console.log(email)
       User.create({
       email,
       password: hash,
