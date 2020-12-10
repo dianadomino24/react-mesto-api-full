@@ -46,7 +46,7 @@ const createUser = (req, res, next) => {
       }
       console.log(SALT_ROUND)
       console.log(password)
-      return bcrypt.hash(password, SALT_ROUND);
+      return bcrypt.hash(password, 10);
     })
     .then((hash) => {
       console.log(hash)
