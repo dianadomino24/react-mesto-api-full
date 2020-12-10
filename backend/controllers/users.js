@@ -54,7 +54,7 @@ const createUser = (req, res, next) => {
       avatar,
     }))
     // eslint-disable-next-line no-shadow
-    .then(({ email, _id }) => res.status(200).send({email, _id})
+    .then(({ email, _id }) => res.status(200).send({ email, _id }))
     // .then((info) => {
     //   const {email, _id} = info;
     //   res.status(200).send({email, _id})
