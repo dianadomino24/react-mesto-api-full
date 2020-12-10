@@ -7,7 +7,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
 require('dotenv').config();
 
-const { NODE_ENV, JWT_SECRET, SALT_ROUND } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -44,7 +44,7 @@ const createUser = (req, res, next) => {
       if (user) {
         throw new ConflictError('This user already exists');
       }
-      return bcrypt.hash(password, SALT_ROUND);
+      return bcrypt.hash(password, 10);
     })
     .then((hash) => User.create({
       email,
