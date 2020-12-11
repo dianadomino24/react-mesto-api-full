@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import RegisterLoginTemplate from './RegisterLoginTemplate'
 import useFormWithValidation from '../hooks/useForm'
 
-const Register = ({ onRegister , onChange}) => {
+const Register = ({ onRegister }) => {
   const {
     values,
     handleChange,
@@ -14,7 +14,6 @@ const Register = ({ onRegister , onChange}) => {
 
   const handleFormChange = (e) => {
     handleChange(e)
-    onChange(e)
   }
   useEffect(() => {
     resetForm()
@@ -23,7 +22,6 @@ const Register = ({ onRegister , onChange}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const { email, password } = values
-    console.log(email, password)
     onRegister(email, password, resetForm)
 
   }

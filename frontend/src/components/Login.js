@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import RegisterLoginTemplate from './RegisterLoginTemplate'
 import useFormWithValidation from '../hooks/useForm'
 
-const Login = ({ onLogin , onChange }) => {
+const Login = ({ onLogin }) => {
   const {
     values,
     handleChange,
@@ -13,7 +13,6 @@ const Login = ({ onLogin , onChange }) => {
 
   const handleFormChange = (e) => {
     handleChange(e)
-    onChange(e)
   }
 
   useEffect(() => {
@@ -23,9 +22,7 @@ const Login = ({ onLogin , onChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const { email, password } = values
-    console.log(email, password)
     onLogin(email, password, resetForm)
-
   }
 
   return (

@@ -245,17 +245,14 @@ function App() {
   function onSignOut() {
     removeToken()
     setLoggedIn(false)
-    setNewUser((prevUser) => ({ ...prevUser, password: '' }));
     history.push('/sign-in')
   }
 
-  const [newUser, setNewUser] = useState({ password: '', email: '' });
-  const setUser = (evt) => {
-    const target = evt.target;
-    const name = target.name;
-    const value = target.value;
-    setNewUser((prevUser) => ({ ...prevUser, [name]: value }));
-  };
+  // const setUser = (evt) => {
+  //   const target = evt.target;
+  //   const name = target.name;
+  //   const value = target.value;
+  // };
 
   function handleLogin(email, password, resetForm) {
     auth
@@ -269,7 +266,6 @@ function App() {
           setToken(data.token)
           setErrorMessage('')
           resetForm()
-          setNewUser({ password: '', email: '' });
           setUserEmail({ email: email })
           setLoggedIn(true)
           history.push('/')
@@ -305,7 +301,6 @@ function App() {
           resetForm()
           handleRegisterSuccess()
           infoTooltipOpen()
-          setNewUser({ password: '', email: res.email });
           history.push('/sign-in')
         }
       })
@@ -352,10 +347,10 @@ function App() {
           <Header onSignOut={onSignOut} userEmail={userEmail} />
           <Switch>
             <Route path="/sign-up">
-              <Register onRegister={handleRegister} onChange={setUser}/>
+              <Register onRegister={handleRegister} />
             </Route>
             <Route path="/sign-in">
-              <Login onLogin={handleLogin} onChange={setUser} />
+              <Login onLogin={handleLogin} />
             </Route>
 
             <ProtectedRoute
