@@ -48,7 +48,6 @@ const Register = ({ onRegister }) => {
         </label>
         <label className="popup__label">
           <input
-            pattern="[\S]"
             type="password"
             value={values.password }
             onChange={handleFormChange}

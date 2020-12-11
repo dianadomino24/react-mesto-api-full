@@ -10,18 +10,18 @@ const validationUser = celebrate({
 
 const validationUserSignUp = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
+    email: Joi.string().trim().required().email(),
     password: Joi.string().trim().required().min(6)
       .max(15),
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
+    name: Joi.string().trim().min(2).max(30),
+    about: Joi.string().trim().min(2).max(30),
     avatar: Joi.string().uri(),
   }),
 });
 
 const validationCard = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2)
+    name: Joi.string().trim().required().min(2)
       .max(30),
     link: Joi.string().required().min(9)
       .uri(),
@@ -30,9 +30,9 @@ const validationCard = celebrate({
 
 const validationUserData = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2)
+    name: Joi.string().trim().required().min(2)
       .max(30),
-    about: Joi.string().required().min(2)
+    about: Joi.string().trim().required().min(2)
       .max(30),
   }),
 });
