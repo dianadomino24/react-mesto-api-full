@@ -10,7 +10,7 @@ export default function useFormWithValidation() {
     const name = target.name
     if (name == 'password') {
       const value = target.value.trim().replace(/\s/g,'')
-      console.log('value_patt', value)
+      console.log('value', value)
       setValues({ ...values, [name]: value })
       setErrors({ ...errors, [name]: target.validationMessage })
     } else {

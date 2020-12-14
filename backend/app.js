@@ -9,7 +9,7 @@ const { routerIndex } = require('./routes/index');
 const NotFoundError = require('./errors/NotFoundError');
 
 const app = express();
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
