@@ -31,7 +31,7 @@ Frontend and backend, full MERN functionality.
 ---
 ## :rocket: Technologies 
 
-* **JavaScript ES6** - object-oriented programming, functional programming, fetch API,
+* **JavaScript ES6** - object-oriented programming, fetch API,
 
 
 * semantic **HTML5**, styles - **CSS3** including Flexbox, Grid, adaptive layout,
