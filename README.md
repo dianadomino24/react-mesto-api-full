@@ -22,9 +22,9 @@ Frontend and backend, full MERN functionality.
 ---
 ## :link: Links to test 
 
-- Project link: https://dianadomino24.students.nomoreparties.space
+- Project link: https://dianadomino24.github.io/react-mesto-front-heroku
 
-- Backend domain name: http://api.dianadomino24.students.nomoreparties.space
+- Backend domain name: https://react-mesto-api-heroku.herokuapp.com/
 
 - Public IP: 178.154.233.146
 
